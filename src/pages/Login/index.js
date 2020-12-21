@@ -5,7 +5,8 @@ import { AuthContext } from "../../App";
 
 import { authenticationService } from "../../services/authentication.service";
 
-const logoCeit = "/img/FotoJet.png";
+const logoRquest = "/img/logo2.png";
+const fondo = "/img/fondoAmarillo.jpg";
 
 const { Header, Content, Footer } = Layout;
 
@@ -56,44 +57,45 @@ const Login = () => {
 
   return (
     <div>
-      <Layout className="layout" style={{ minHeight: "100vh", background: "#151515" }}>
-        <Header className="header-login" style={{ padding: 0, backgroundColor:'orange' }}></Header>
-        <Content>
-          <Row style={{ background: "#151515", minHeight: "calc(100vh - 140px)" }} type="flex" justify="space-around" align="middle">
-            <Col sm={24} md={12} lg={6} xl={6} style={{ textAlign: "center" }}>
-              <Form onFinish={handleFormSubmit} className="login-form" style={{ padding: 24 }}>
-                <img src={logoCeit} alt="Logo" style={{ width: "30vw", marginLeft:'-3vw'}} />
-
-                <Form.Item>
-                  <Input
-                    
-                    placeholder="Usuario"
-                    name="username"
-                    onChange={handleInputChange}
-                  />
-                </Form.Item>
-                <Form.Item>
-                  <Input
-                    type="password"
-                    placeholder="Contraseña"
-                    name="password"
-                    onChange={handleInputChange}
-                  />
-                </Form.Item>
-                <Form.Item>
-                  <Spin spinning={data.isSubmitting}>
-                    <Button type="primary" shape="round" htmlType="submit" style={{backgroundColor: 'orange'}} className="login-form-button">
-                      Entrar
-                    </Button>
-                  </Spin>
-                  {data.errorMessage && <Alert message={data.errorMessage} type="error" showIcon />}
-                </Form.Item>
-              </Form>
-            </Col>
-          </Row>
-        </Content>
-        <Footer style={{ textAlign: "center", color:'black', backgroundColor:'orange' }}>Route Quest &copy; 2021</Footer>
-      </Layout>
+    
+        <Layout className="layout" style={{ minHeight: "100vh", backgroundImage: "url(" + fondo + ")" }}>
+          <Header className="header-login" style={{ padding: 0, backgroundColor:'orange' }}></Header>
+          <Content>
+            <Row >
+              <Col sm={24} md={12} lg={6} xl={6} style={{ textAlign: "center" }} className="form">
+                <Form onFinish={handleFormSubmit} style={{ padding: 24 }}>
+                  <img src={logoRquest} alt="Logo" style={{ width: "85%" }} />
+                  <Form.Item>
+                    <Input
+                      className="input"
+                      placeholder="Usuario"
+                      name="username"
+                      onChange={handleInputChange}
+                    />
+                  </Form.Item>
+                  <Form.Item>
+                    <Input
+                      className="input"
+                      type="password"
+                      placeholder="Contraseña"
+                      name="password"
+                      onChange={handleInputChange}
+                    />
+                  </Form.Item>
+                  <Form.Item>
+                    <Spin spinning={data.isSubmitting}>
+                      <Button type="primary" shape="round" htmlType="submit" style={{backgroundColor: 'orange'}} className="button">
+                        Entrar
+                      </Button>
+                    </Spin>
+                    {data.errorMessage && <Alert message={data.errorMessage} type="error" showIcon />}
+                  </Form.Item>
+                </Form>
+              </Col>
+            </Row>
+          </Content>
+          <Footer style={{ textAlign: "center", color:'black', backgroundColor:'orange' }}>Route Quest &copy; 2021</Footer>
+        </Layout>
     </div>
   );
 };

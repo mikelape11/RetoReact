@@ -9,8 +9,6 @@ import { Layout, Menu, Row, Button } from "antd";
 // Styles
 import { Logo, Wrapper, ImgHeader } from "./styles";
 
-import { ToolOutlined, FileTextOutlined } from '@ant-design/icons';
-
 
 //Rutas programadas
 import { routes } from "./routes";
@@ -65,7 +63,7 @@ const Routes = () => {
         >
           <Logo />
           <Menu style={{ height: "calc(100vh - 64px)" }} mode="inline"  theme="dark" defaultOpenKeys={[localStorage.getItem("sub-item")]} defaultSelectedKeys={[localStorage.getItem("item")]}>
-            <SubMenu onClick={getKey} key="sub1" icon={<ToolOutlined />} title="Settings">
+            <SubMenu onClick={getKey} key="sub1"  title="Settings">
               <Menu.Item key="ksr1">
                 <Link to="/ksrsettings">
                   KSR Parameters
@@ -77,7 +75,7 @@ const Routes = () => {
                 </Link>
               </Menu.Item>
             </SubMenu>
-            <SubMenu onClick={getKey} key="sub2" icon={<FileTextOutlined />} title="Measurement Configuration">
+            <SubMenu onClick={getKey} key="sub2" title="Measurement Configuration">
               <Menu.Item key="agents1">
                 <Link to="/agentconfig">
                   Agent Configuration
@@ -89,7 +87,7 @@ const Routes = () => {
                 </Link>
               </Menu.Item>
             </SubMenu>
-            <SubMenu onClick={getKey} key="sub3" icon={<FileTextOutlined />} title="Results">
+            <SubMenu onClick={getKey} key="sub3" title="Results">
               <Menu.Item key="maps1">
                 <Link to="/maps">
                   Maps
@@ -106,13 +104,12 @@ const Routes = () => {
                 </Link>
               </Menu.Item>
             </SubMenu>
-            <SubMenu onClick={getKey} key="sub4" icon={<FileTextOutlined />} title="Statistic Results">
+            <SubMenu onClick={getKey} key="sub4" title="Statistic Results">
               <Menu.Item key="maps2">
                 <Link to="/mapquad">
                   Maps
                 </Link>
-              </Menu.Item>
-              
+              </Menu.Item> 
             </SubMenu>
           </Menu>
         </Sider>
