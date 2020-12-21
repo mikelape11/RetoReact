@@ -8,7 +8,6 @@ function createWindow() {
     mainWindow = new BrowserWindow({ 
         width: 1200, 
         height: 800,
-        frame: false,
     });
      
     mainWindow.setIcon(path.join(__dirname, "../build/icon.png"));
@@ -19,6 +18,7 @@ function createWindow() {
         : `file://${path.join(__dirname, "../build/index.html")}`
     );
     mainWindow.on("closed", () => (mainWindow = null));
+
 }
 
 app.on("ready", createWindow);
