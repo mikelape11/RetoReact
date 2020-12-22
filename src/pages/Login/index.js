@@ -4,6 +4,7 @@ import { Form, Input, Button, Layout, Row, Col, Alert, Spin } from "antd";
 import { AuthContext } from "../../App";
 
 import { authenticationService } from "../../services/authentication.service";
+import { Link, Router } from "react-router-dom";
 
 const logoRquest = "/img/logo2.png";
 const fondo = "/img/fondoAmarillo.jpg";
@@ -87,6 +88,10 @@ const Login = () => {
                       <Button type="primary" shape="round" htmlType="submit" style={{backgroundColor: 'orange'}} className="button">
                         Entrar
                       </Button>
+                      <Router>
+                      <Link to="/map">Prueba</Link>
+                        
+                      </Router>
                     </Spin>
                     {data.errorMessage && <Alert message={data.errorMessage} type="error" showIcon />}
                   </Form.Item>
