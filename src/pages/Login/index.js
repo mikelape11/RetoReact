@@ -1,10 +1,9 @@
 import React, { useContext, useState } from "react";
-import { Form, Input, Button, Layout, Row, Col, Alert, Spin } from "antd";
+import { Form, Icon, Input, Button, Layout, Row, Col, Alert, Spin } from "antd";
 
 import { AuthContext } from "../../App";
 
 import { authenticationService } from "../../services/authentication.service";
-import { Link, Router } from "react-router-dom";
 
 const logoRquest = "/img/logo2.png";
 const fondo = "/img/fondoAmarillo.jpg";
@@ -58,7 +57,6 @@ const Login = () => {
 
   return (
     <div>
-    
         <Layout className="layout" style={{ minHeight: "100vh", backgroundImage: "url(" + fondo + ")" }}>
           <Header className="header-login" style={{ padding: 0, backgroundColor:'orange' }}></Header>
           <Content>
@@ -68,6 +66,7 @@ const Login = () => {
                   <img src={logoRquest} alt="Logo" style={{ width: "85%" }} />
                   <Form.Item>
                     <Input
+                      prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
                       className="input"
                       placeholder="Usuario"
                       name="username"
@@ -76,6 +75,7 @@ const Login = () => {
                   </Form.Item>
                   <Form.Item>
                     <Input
+                      prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
                       className="input"
                       type="password"
                       placeholder="Contraseña"
@@ -88,10 +88,6 @@ const Login = () => {
                       <Button type="primary" shape="round" htmlType="submit" style={{backgroundColor: 'orange'}} className="button">
                         Entrar
                       </Button>
-                      <Router>
-                      <Link to="/map">Prueba</Link>
-                        
-                      </Router>
                     </Spin>
                     {data.errorMessage && <Alert message={data.errorMessage} type="error" showIcon />}
                   </Form.Item>

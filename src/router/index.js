@@ -71,14 +71,10 @@ const Routes = () => {
                   Gestion de Rutas
                 </Link>
               </Menu.Item>
-              
-            
             <Button onClick={() => logout()}>Cerrar sesión</Button>
-
           </Menu>
         </Sider>
         <Layout>
-          
           <Content style={{ margin: "24px 16px 0" }}>
             <Wrapper>
               <Switch>
