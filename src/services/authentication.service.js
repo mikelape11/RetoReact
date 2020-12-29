@@ -1,7 +1,11 @@
 const login = (username, password) => {
+  console.log(JSON.stringify({
+    usuario: username,
+    password: password,
+}))
   //http request
   /*return axios
-    .post(process.env.REACT_APP_DB + "users/login", {
+    .post("http://localhost:8080/usuarios/login", {
       username: username,
       password: password,
     })
@@ -16,21 +20,23 @@ const login = (username, password) => {
     .catch(() => {
       return { error: "User or password incorrrect!" };
     });*/
-    fetch("http://localhost:8080/usuarios/login",{
-      method: 'POST',
-      headers: {
-        'Content-Type':'application/json',
-      },
-      body:
-        JSON.stringify({
-            'usuario': username,
-            'password': password,
-        }),
-    }).then(res =>{
-        console.log(res)
-      })
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
+  fetch("http://localhost:8080/usuarios/login",{
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body:
+      JSON.stringify({
+          usuario: username,
+          password: password,//Por alguna razon que no entiendo esto da error 415, cuando no debería, de momento lo dejamos y ya lo arreglaremos.
+    }),
+    mode:'no-cors',
+  }).then(res =>{
+      console.log(res)
+    })
+  .catch(error => console.error('Error:', error))
+  .then(response => console.log('Success:', response));
 };
 
 export const authenticationService = {
