@@ -1,15 +1,20 @@
+import axios from "axios";
+
 const login = (username, password) => {
-  console.log(JSON.stringify({
+  const json = JSON.stringify({
     usuario: username,
     password: password,
-}))
+  })
   //http request
-  /*return axios
+  return axios
     .post("http://localhost:8080/usuarios/login", {
-      username: username,
-      password: password,
-    })
-    .then((res) => {
+      json
+    },{
+    headers: {
+      'Content-Type': 'application/json'
+    }})
+    .then((res) => {//Da error 500 en la llamada
+      console.log(res)
       if (res.status === 200) {
         return res.data;
       }
@@ -19,8 +24,8 @@ const login = (username, password) => {
     })
     .catch(() => {
       return { error: "User or password incorrrect!" };
-    });*/
-  fetch("http://localhost:8080/usuarios/login",{
+    });
+  /*fetch("http://localhost:8080/usuarios/login",{
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -29,14 +34,13 @@ const login = (username, password) => {
     body:
       JSON.stringify({
           usuario: username,
-          password: password,//Por alguna razon que no entiendo esto da error 415, cuando no debería, de momento lo dejamos y ya lo arreglaremos.
+          password: password,//Ahora se puede arreglar esto, con el CrossOrigin
     }),
-    mode:'no-cors',
   }).then(res =>{
-      console.log(res)
+      console.log(res.status)
     })
   .catch(error => console.error('Error:', error))
-  .then(response => console.log('Success:', response));
+  .then(response => console.log('Success:', response));*/
 };
 
 export const authenticationService = {

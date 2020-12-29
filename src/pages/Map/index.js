@@ -8,6 +8,7 @@ import 'antd/dist/antd.css';
 import Highlighter from 'react-highlight-words';
 // eslint-disable-next-line
 import { BrowserRouter as Router, Route, Switch,Link } from "react-router-dom";
+import Axios from 'axios';
 
 const {Title, Text} = Typography;
 
@@ -71,7 +72,7 @@ const RouteTable = () =>{
        setSearchText('');
     };
     const columns = [
-        {title:'ID',dataIndex:'id',key:'id'},{title: 'Nombre Ruta',dataIndex:'name',key:'name', ...getColumnSearchProps('name')},{ title: 'Distancia',  dataIndex:'distancia',key:'distancia'},{title:'Tiempo est.', dataIndex: 'tiempo', key:'tiempo'},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>retrieveRoute(record.id)} icon={<EditOutlined />}/><Button onClick={()=>deleteRoute(record.id)} icon={<DeleteOutlined />}/></b>} 
+        {title:'ID',dataIndex:'id',key:'id'},{title: 'Nombre Ruta',dataIndex:'nombre',key:'nombre', ...getColumnSearchProps('name')},{ title: 'Distancia',  dataIndex:'distancia',key:'distancia'},{title:'Tiempo est.', dataIndex: 'tiempo', key:'tiempo'},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>retrieveRoute(record.id)} icon={<EditOutlined />}/><Button onClick={()=>deleteRoute(record.id)} icon={<DeleteOutlined />}/></b>} 
     ]
     const retrieveRoute = id =>{
         window.location.href=`agentconfig/update/${id}`
@@ -92,17 +93,23 @@ const RouteTable = () =>{
       window.location.reload();
     }
     useEffect(() => {
-        fetch(process.env.REACT_APP_DB + "testagents/")
+        fetch("http://localhost:8080/routes/all", {
+          headers : { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+        })
           .then(res => res.json()
           .then(
             (result) => {
-              setRoute(result.testagents)
+              console.log(result)
+              setRoute(result)
             }
           ))
     }, []);
     return (
        <div>
-           <Row justify={'space-between'}>
+        <Row justify={'space-between'}>
           <Col span={12}><Title>Gestión de rutas <Text type="secondary">Tabla</Text></Title></Col>
           <Col span={12}>
             <Breadcrumb separator=">" >
