@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
 export const AuthContext = createContext();
 
 const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: true,
   user: null,
   token: null,
 };

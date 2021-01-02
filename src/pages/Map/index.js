@@ -3,7 +3,7 @@ import React, { useState, useEffect, } from 'react';
 //Leaflet
 import 'leaflet/dist/leaflet.css';
 import {Table, Button, Input, Space, Breadcrumb, Typography, Row, Col} from 'antd';
-import { EditOutlined, DeleteOutlined, SearchOutlined, PlusOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, SearchOutlined, PlusOutlined, EyeOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import Highlighter from 'react-highlight-words';
 // eslint-disable-next-line
@@ -72,8 +72,11 @@ const RouteTable = () =>{
        setSearchText('');
     };
     const columns = [
-        {title:'ID',dataIndex:'id',key:'id'},{title: 'Nombre Ruta',dataIndex:'nombre',key:'nombre', ...getColumnSearchProps('name')},{ title: 'Distancia',  dataIndex:'distancia',key:'distancia'},{title:'Tiempo est.', dataIndex: 'tiempo', key:'tiempo'},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>retrieveRoute(record.id)} icon={<EditOutlined />}/><Button onClick={()=>deleteRoute(record.id)} icon={<DeleteOutlined />}/></b>} 
+        {title:'ID',dataIndex:'id',key:'id'},{title: 'Nombre Ruta',dataIndex:'nombre',key:'nombre', ...getColumnSearchProps('name')},{ title: 'Distancia',  dataIndex:'distancia',key:'distancia'},{title:'Tiempo est.', dataIndex: 'tiempo', key:'tiempo'},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>readRoute(record.id)} icon={<EyeOutlined />}></Button><Button onClick={()=>retrieveRoute(record.id)} icon={<EditOutlined />}/><Button onClick={()=>deleteRoute(record.id)} icon={<DeleteOutlined />}/></b>} 
     ]
+    const readRoute = id => {
+      window.location.href=`routes/${id}`
+    }
     const retrieveRoute = id =>{
         window.location.href=`agentconfig/update/${id}`
     }

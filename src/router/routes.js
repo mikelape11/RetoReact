@@ -15,7 +15,7 @@ export const routes = [
     },
     {
         key: "2",
-        path: "/routes/create",
+        path: "/routes/:id",
         exact: true,
         text: "Mapa",
         body: () => <Map /> 
