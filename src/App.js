@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
 export const AuthContext = createContext();
 
 const initialState = {
-  isAuthenticated: true,
+  isAuthenticated: false,
   user: null,
   token: null,
 };
@@ -16,12 +16,12 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
-      localStorage.setItem("user", JSON.stringify(action.payload.user));
+      localStorage.setItem("usuario", JSON.stringify(action.payload.usuario));
       localStorage.setItem("token", JSON.stringify(action.payload.token));
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload.user,
+        usuario: action.payload.usuario,
         token: action.payload.token,
       };
     case "LOGOUT":
@@ -29,7 +29,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         isAuthenticated: false,
-        user: null,
+        usuario: null,
         token: null,
       };
     default:
@@ -44,7 +44,7 @@ const App = () => {
     //Para el efecto dl horno
     localStorage.removeItem("furnaceTemp");
 
-    const user = JSON.parse(localStorage.getItem("user") || null);
+    const user = JSON.parse(localStorage.getItem("usuario") || null);
     const token = JSON.parse(localStorage.getItem("token"));
 
     var decodedToken = jwt.decode(token, { complete: true });

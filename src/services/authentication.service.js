@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const login = (username, password) => {
-  const json = JSON.stringify({
+  /*const json = JSON.stringify({
     usuario: username,
     password: password,
   })
@@ -24,8 +24,8 @@ const login = (username, password) => {
     })
     .catch(() => {
       return { error: "User or password incorrrect!" };
-    });
-  /*fetch("http://localhost:8080/usuarios/login",{
+    });*/
+  return fetch("http://localhost:8080/usuarios/login",{
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -36,11 +36,13 @@ const login = (username, password) => {
           usuario: username,
           password: password,//Ahora se puede arreglar esto, con el CrossOrigin
     }),
-  }).then(res =>{
-      console.log(res.status)
+  })
+  .then(result => result.json())
+  .then(res =>{
+      console.log(res)
+      return res;
     })
   .catch(error => console.error('Error:', error))
-  .then(response => console.log('Success:', response));*/
 };
 
 export const authenticationService = {

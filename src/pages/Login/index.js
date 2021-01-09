@@ -49,7 +49,7 @@ const Login = () => {
       } else {
         dispatch({
           type: "LOGIN",
-          payload: { user: response.user, token: response.token },
+          payload: { usuario: response.usuario, token: response.token },
         });
       }
     });
