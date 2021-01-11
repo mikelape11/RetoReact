@@ -8,7 +8,6 @@ import 'antd/dist/antd.css';
 import Highlighter from 'react-highlight-words';
 // eslint-disable-next-line
 import { BrowserRouter as Router, Route, Switch,Link } from "react-router-dom";
-import Axios from 'axios';
 
 const {Title, Text} = Typography;
 
@@ -21,7 +20,6 @@ const RouteTable = () =>{
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
           <div style={{ padding: 8 }}>
             <Input
-              
               placeholder={`Search ${dataIndex}`}
               value={selectedKeys[0]}
               onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
@@ -122,7 +120,7 @@ const RouteTable = () =>{
           </Col>
         </Row>
         <Row>
-          <Button icon={<PlusOutlined />}><Link to="/routes/create">Añadir nueva ruta</Link></Button>
+          <Button icon={<PlusOutlined />}><Link to="/routes_create">Añadir nueva ruta</Link></Button>
         </Row>
            <Table dataSource={routes} columns={columns} rowKey='id'></Table>
        </div>

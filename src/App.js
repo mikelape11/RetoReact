@@ -14,14 +14,16 @@ const initialState = {
 };
 
 const reducer = (state, action) => {
+  console.log(action)
+
   switch (action.type) {
     case "LOGIN":
-      localStorage.setItem("usuario", JSON.stringify(action.payload.usuario));
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
       localStorage.setItem("token", JSON.stringify(action.payload.token));
       return {
         ...state,
         isAuthenticated: true,
-        usuario: action.payload.usuario,
+        user: action.payload.user,
         token: action.payload.token,
       };
     case "LOGOUT":
@@ -29,7 +31,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         isAuthenticated: false,
-        usuario: null,
+        user: null,
         token: null,
       };
     default:
@@ -44,13 +46,14 @@ const App = () => {
     //Para el efecto dl horno
     localStorage.removeItem("furnaceTemp");
 
-    const user = JSON.parse(localStorage.getItem("usuario") || null);
+    const user = JSON.parse(localStorage.getItem("user") || null);
     const token = JSON.parse(localStorage.getItem("token"));
+    console.log(user, token)
 
     var decodedToken = jwt.decode(token, { complete: true });
 
     var dateNow = new Date();
-    const valid_token = decodedToken && decodedToken.payload.exp * 1000 > dateNow.getTime();
+    const valid_token = true;
 
     console.log(
       "valid_token",

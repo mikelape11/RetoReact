@@ -2,8 +2,7 @@ import React from 'react';
 
 import RouteTable from '../pages/Map'
 import Map from '../pages/Map/ReadMap'
-
-
+import RouteCreator from '../pages/Map/CreateRoute'
 
 export const routes = [
     {
@@ -20,4 +19,11 @@ export const routes = [
         text: "Mapa",
         body: () => <Map /> 
     },
+    {
+        key: "3",
+        path: "/routes_create",
+        exact: true,
+        text: "Mapa",
+        body: ()=><RouteCreator />
+    }
 ];
