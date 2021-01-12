@@ -1,4 +1,4 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useState, useEffect } from 'react';
 
 //Leaflet
 import 'leaflet/dist/leaflet.css';
@@ -79,7 +79,6 @@ const RouteTable = () =>{
         window.location.href=`agentconfig/update/${id}`
     }
     const deleteRoute = id =>{
-      console.log(id)
       fetch(process.env.REACT_APP_DB + `testagents/`,{
         method: 'DELETE',
         headers: {
@@ -103,7 +102,6 @@ const RouteTable = () =>{
           .then(res => res.json()
           .then(
             (result) => {
-              console.log(result)
               setRoute(result)
             }
           ))

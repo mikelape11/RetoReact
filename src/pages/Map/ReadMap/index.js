@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect} from 'react';
 
 //Leaflet
 import { MapContainer, TileLayer, Polyline, useMap, Marker } from 'react-leaflet';
@@ -25,7 +25,6 @@ const Map = () =>{
         <MapContainer center={[43.25, -1.25]} zoom={5} style={{ height: 'calc(105vh - 210px)' }}>
             <TileLayer attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"/>
             {ruta.rutas_data && ruta.rutas_data.map((ll,a)=>{
-                console.log(ll)
                 if(a===0){
                     return null
                 }

@@ -66,9 +66,14 @@ const Routes = () => {
         >
           <Logo />
           <Menu style={{ height: "calc(100vh - 64px)" }} mode="inline"  theme="dark" defaultOpenKeys={[localStorage.getItem("sub-item")]} defaultSelectedKeys={[localStorage.getItem("item")]}>
-              <Menu.Item key="ksr1" icon={<mapaSVG/>}>
+              <Menu.Item key="rutas" icon={<mapaSVG/>}>
                 <Link to="/routes">
                   Gestion de Rutas
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="preguntas" icon={<mapaSVG/>}>
+                <Link to="/preguntas">
+                  Gestion de Preguntas
                 </Link>
               </Menu.Item>
             <Button onClick={() => logout()}>Cerrar sesión</Button>
