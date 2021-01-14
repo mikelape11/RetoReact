@@ -4,6 +4,7 @@ import RouteTable from '../pages/Map'
 import Map from '../pages/Map/ReadMap'
 import RouteCreator from '../pages/Map/CreateRoute'
 import Preguntas from '../pages/Preguntas'
+import UserTable from '../pages/Usuarios'
 
 export const routes = [
     {
@@ -33,5 +34,12 @@ export const routes = [
         exact: true,
         text: "Pregunta",
         body: ()=><Preguntas/>
+    },
+    {
+        key: "6",
+        path:"/usuarios",
+        exact: true,
+        text: "Pregunta",
+        body: ()=><UserTable/>
     }
 ];

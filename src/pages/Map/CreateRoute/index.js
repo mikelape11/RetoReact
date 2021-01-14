@@ -98,7 +98,6 @@ const RouteCreator = () => {
   
   return (
     <div>
-      <h1>hoal</h1>
         <Form onFinish={GuardarRuta}>
           <Form.Item label="Nombre" name="nombre" rules={[{ required: true, message: 'El nombre es obligatorio!!' }]}>
               <Input/>

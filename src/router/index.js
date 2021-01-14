@@ -76,6 +76,16 @@ const Routes = () => {
                   Gestion de Preguntas
                 </Link>
               </Menu.Item>
+              <Menu.Item key="ranking" icon={<mapaSVG/>}>
+                <Link to="/ranking">
+                  Gestion de Ranking
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="usuarios" icon={<mapaSVG/>}>
+                <Link to="/usuarios">
+                  Gestion de Usuarios
+                </Link>
+              </Menu.Item>
             <Button onClick={() => logout()}>Cerrar sesión</Button>
           </Menu>
         </Sider>

@@ -11,8 +11,8 @@ import { BrowserRouter as Router, Route, Switch,Link } from "react-router-dom";
 
 const {Title, Text} = Typography;
 
-const RouteTable = () =>{
-    const [routes, setRoute] = useState(null);
+const UserTable = () =>{
+    const [users, setUsers] = useState(null);
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
     
@@ -70,16 +70,13 @@ const RouteTable = () =>{
        setSearchText('');
     };
     const columns = [
-        {title:'ID',dataIndex:'id',key:'id'},{title: 'Nombre Ruta',dataIndex:'nombre',key:'nombre', ...getColumnSearchProps('name')},{ title: 'Distancia',  dataIndex:'distancia',key:'distancia'},{title:'Tiempo est.', dataIndex: 'tiempo', key:'tiempo'},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>readRoute(record.id)} icon={<EyeOutlined />}></Button><Button onClick={()=>retrieveRoute(record.id)} icon={<EditOutlined />}/><Button onClick={()=>deleteRoute(record.id)} icon={<DeleteOutlined />}/></b>} 
+        {title:'ID',dataIndex:'id',key:'id'},{title: 'Nombre de usuario',dataIndex:'usuario',key:'usuario', ...getColumnSearchProps('usuario')},{ title: 'Contraseña',  dataIndex:'password',key:'password'},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>retrieveRoute(record.id)} icon={<EditOutlined />}/><Button onClick={()=>deleteRoute(record.id)} icon={<DeleteOutlined />}/></b>} 
     ]
-    const readRoute = id => {
-      window.location.href=`routes/${id}`
-    }
     const retrieveRoute = id =>{
         window.location.href=`agentconfig/update/${id}`
     }
     const deleteRoute = id =>{
-      fetch(`http://localhost:8080/routes/${id}`,{
+      fetch(`http://localhost:8080/usuarios/${id}`,{
         method: 'DELETE',
         headers: {
           'Content-Type':'application/json',
@@ -90,7 +87,7 @@ const RouteTable = () =>{
       window.location.reload();
     }
     useEffect(() => {
-        fetch("http://localhost:8080/routes/all", {
+        fetch("http://localhost:8080/usuarios/todos_registrados", {
           headers : { 
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -99,27 +96,24 @@ const RouteTable = () =>{
           .then(res => res.json()
           .then(
             (result) => {
-              setRoute(result)
+              setUsers(result)
             }
           ))
     }, []);
     return (
        <div>
         <Row justify={'space-between'}>
-          <Col span={12}><Title>Gestión de rutas <Text type="secondary">Tabla</Text></Title></Col>
+          <Col span={12}><Title>Gestión de usuarios <Text type="secondary">Tabla</Text></Title></Col>
           <Col span={12}>
             <Breadcrumb separator=">" >
-              <Breadcrumb.Item>Gestión de Rutas</Breadcrumb.Item>
+              <Breadcrumb.Item>Gestión de Usuarios</Breadcrumb.Item>
               <Breadcrumb.Item>Tabla de datos</Breadcrumb.Item>
             </Breadcrumb>
           </Col>
         </Row>
-        <Row>
-          <Button icon={<PlusOutlined />}><Link to="/routes_create">Añadir nueva ruta</Link></Button>
-        </Row>
-           <Table dataSource={routes} columns={columns} rowKey='id'></Table>
+           <Table dataSource={users} columns={columns} rowKey='id'></Table>
        </div>
     )
 }
 
-export default RouteTable;
+export default UserTable;
