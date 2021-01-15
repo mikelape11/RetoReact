@@ -23,8 +23,6 @@ const INITIAL_STATE = {
       [40.09557563847372, -1.2575000524520874]
     ]
 }
-var st='';
-var cont = 0;
 
 const RouteCreator = () => {
   const [mapState, setMapState] = useState(INITIAL_STATE); //Estado por defecto
@@ -32,6 +30,9 @@ const RouteCreator = () => {
   const [track, setTrack] = useState([]);
   const [markers, setMarkers] = useState([])
   const [markerMode, setMarkerMode] = useState(false);
+  const [distancia, setDistancia] = useState(0);
+  const [tiempo, setTiempo] = useState(0);
+
   let descMarker = new L.ExtraMarkers.Icon({
     markerColor: 'blue', prefix: 'fa',
   });
@@ -46,8 +47,11 @@ const RouteCreator = () => {
           routingService.getRoute(rutaClick.lat, rutaClick.lng, e.latlng.lat, e.latlng.lng)
           .then(response => {
             if (response) 
+            console.log(response)
             setTrack(track => [...track,...response.latLon])
             setRutaClick({lat: e.latlng.lat, lng: e.latlng.lng})
+            setDistancia(distancia+response.distance)
+            setTiempo(tiempo+response.time)
           });
         }
       }
@@ -86,6 +90,7 @@ const RouteCreator = () => {
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => console.log('Success:', response));
+    window.location.href='/routes_create/add_pregunta'
   }
   useEffect(() => {
       delete L.Icon.Default.prototype._getIconUrl;
@@ -106,6 +111,8 @@ const RouteCreator = () => {
 
         </Form>
         <Button onClick={ChangeMode}>Terminar ruta</Button>
+        <h1>{(Math.round((distancia/1000)*100))/100} km</h1>
+        <h1>{tiempo/1000} segundos</h1>
         <MapContainer 
           center={[mapState.lat, mapState.lng]} 
           zoom={mapState.zoom} 

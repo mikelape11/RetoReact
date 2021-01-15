@@ -8,7 +8,7 @@ function getRoute(lat1, lng1, lat2, lng2) {
                 res.data.paths[0].points.coordinates.forEach(el => {
                     obj.push({ lat: el[1], lng: el[0] })
                 })
-                return { latLon: obj, array: res.data.paths[0].points.coordinates };
+                return { latLon: obj, array: res.data.paths[0].points.coordinates, distance: res.data.paths[0].distance, time: res.data.paths[0].time};
             }
         })
         .catch(() => { return { error: "Routing fail!" } });
