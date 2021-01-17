@@ -47,12 +47,6 @@ const Preguntas = () =>{
                 }
             )
     }
-    const Pregunta = (p)=>{
-        console.log(p)
-        return (
-            <Form.Item label={p.pregunta}></Form.Item>
-        )
-    }
 
     //hay que hacer que reciba todas las ciudades de las rutas que hayen una array/lista sin que se repitan
     //mas o menos hecho, spring es una puta mierda

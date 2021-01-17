@@ -23,8 +23,6 @@ const INITIAL_STATE = {
       [40.09557563847372, -1.2575000524520874]
     ]
 }
-var st='';
-var cont = 0;
 
 const RouteCreator = () => {
   const [mapState, setMapState] = useState(INITIAL_STATE); //Estado por defecto
@@ -54,6 +52,7 @@ const RouteCreator = () => {
     });
     return null;
   }
+
   //Funcion para añadir los puntos de las preguntas
   const CrearPuntos = () =>{
     const map = useMapEvents({
@@ -63,6 +62,7 @@ const RouteCreator = () => {
     })
     return null
   }
+  //Funcion para deshacer 
   const ChangeMode = ()=>{
     if(!markerMode){
       setMarkerMode(true)
@@ -87,14 +87,7 @@ const RouteCreator = () => {
     .catch(error => console.error('Error:', error))
     .then(response => console.log('Success:', response));
   }
-  useEffect(() => {
-      delete L.Icon.Default.prototype._getIconUrl;
-      L.Icon.Default.mergeOptions({
-        iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-        iconUrl: require("leaflet/dist/images/marker-icon.png"),
-        shadowUrl: require("leaflet/dist/images/marker-shadow.png")
-      });
-    }, []);
+ 
   
   return (
     <div>
@@ -102,10 +95,9 @@ const RouteCreator = () => {
           <Form.Item label="Nombre" name="nombre" rules={[{ required: true, message: 'El nombre es obligatorio!!' }]}>
               <Input/>
           </Form.Item>
-        <Button htmlType="submit">Guardar Ruta</Button>
-
+          <Button htmlType="submit">Guardar Ruta</Button>
         </Form>
-        <Button onClick={ChangeMode}>Terminar ruta</Button>
+        <Button onClick={ChangeMode}>Cambiar Modo</Button>
         <MapContainer 
           center={[mapState.lat, mapState.lng]} 
           zoom={mapState.zoom} 
