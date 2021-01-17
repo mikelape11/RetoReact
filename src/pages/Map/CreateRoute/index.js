@@ -30,6 +30,12 @@ const RouteCreator = () => {
   const [track, setTrack] = useState([]);
   const [markers, setMarkers] = useState([])
   const [markerMode, setMarkerMode] = useState(false);
+  const [distancia, setDistancia] = useState(0);
+  const [tiempo, setTiempo] = useState(0);
+
+  //aux
+  const [clickAux, setClickAux] = useState(null)
+
   let descMarker = new L.ExtraMarkers.Icon({
     markerColor: 'blue', prefix: 'fa',
   });
@@ -44,8 +50,12 @@ const RouteCreator = () => {
           routingService.getRoute(rutaClick.lat, rutaClick.lng, e.latlng.lat, e.latlng.lng)
           .then(response => {
             if (response) 
+            console.log(response)
             setTrack(track => [...track,...response.latLon])
+            setClickAux({lat: rutaClick.lat, lng: rutaClick.lng})
             setRutaClick({lat: e.latlng.lat, lng: e.latlng.lng})
+            setDistancia(distancia+response.distance)
+            setTiempo(tiempo+response.time)
           });
         }
       }
@@ -62,7 +72,21 @@ const RouteCreator = () => {
     })
     return null
   }
-  //Funcion para deshacer 
+  //Funcion para deshacer
+  const deshacerRuta = () => {
+    var p = false;
+    var indexaux=0;
+    console.log(clickAux)
+      
+    setTrack(track.filter(item => item!=clickAux))
+      
+      //setJoinList(joinList.filter((e)=>(e !== name)))
+      //un intento de deshacer, de momento no hace nada
+      //el problema es que, al guardarse en el array se reducen los decimales
+      console.log(track)
+
+  }
+
   const ChangeMode = ()=>{
     if(!markerMode){
       setMarkerMode(true)
@@ -86,6 +110,7 @@ const RouteCreator = () => {
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => console.log('Success:', response));
+    window.location.href='/routes_create/add_pregunta'
   }
  
   
@@ -98,6 +123,9 @@ const RouteCreator = () => {
           <Button htmlType="submit">Guardar Ruta</Button>
         </Form>
         <Button onClick={ChangeMode}>Cambiar Modo</Button>
+        <Button onClick={deshacerRuta}>Deshacer</Button>
+        <h1>{(Math.round((distancia/1000)*100))/100} km</h1>
+        <h1>{Math.round((tiempo/1000)/60)} min.</h1>
         <MapContainer 
           center={[mapState.lat, mapState.lng]} 
           zoom={mapState.zoom} 

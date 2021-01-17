@@ -3,6 +3,7 @@ import React from 'react';
 import RouteTable from '../pages/Map'
 import Map from '../pages/Map/ReadMap'
 import RouteCreator from '../pages/Map/CreateRoute'
+import AnadirPregunta from '../pages/Map/AddPreguntas'
 import Preguntas from '../pages/Preguntas'
 import UserTable from '../pages/Usuarios'
 
@@ -27,16 +28,22 @@ export const routes = [
         exact: true,
         text: "Mapa",
         body: ()=><RouteCreator />
+    },{
+        key: "3",
+        path: "/routes_create/add_pregunta",
+        exact: true,
+        text: "Mapa_Pregunta",
+        body: ()=><AnadirPregunta/>
     },
     {
-        key: "4",
+        key: "5",
         path:"/preguntas",
         exact: true,
         text: "Pregunta",
         body: ()=><Preguntas/>
     },
     {
-        key: "6",
+        key: "7",
         path:"/usuarios",
         exact: true,
         text: "Pregunta",
