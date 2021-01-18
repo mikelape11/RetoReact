@@ -6,6 +6,7 @@ import RouteCreator from '../pages/Map/CreateRoute'
 import AnadirPregunta from '../pages/Map/AddPreguntas'
 import Preguntas from '../pages/Preguntas'
 import UserTable from '../pages/Usuarios'
+import UpdateUsuario from '../pages/Usuarios/UpdateUsuario'
 
 export const routes = [
     {
@@ -46,7 +47,14 @@ export const routes = [
         key: "7",
         path:"/usuarios",
         exact: true,
-        text: "Pregunta",
+        text: "Usuarios",
         body: ()=><UserTable/>
+    },
+    {
+        key: "8",
+        path:"/usuarios/update/{id}",
+        exact: true,
+        text: "Usuarios",
+        body: ()=><UpdateUsuario/>
     }
 ];

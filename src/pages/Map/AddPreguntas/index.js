@@ -14,9 +14,32 @@ const AnadirPregunta = () =>{
         )
     },[])
 
+    const guardarPreguntas = (data) =>{
+        
+        {ruta && ruta.rutas_loc.map((loc,a)=>{
+            fetch('http://localhost:8080/preguntas/guardar',{
+                method: 'POST',
+                headers: {
+                  'Content-Type':'application/json',
+                },
+                body:
+                    JSON.stringify({
+                        'numPregunta': parseInt(a+1),
+                        'pregunta': data[`preg${a}`],
+                        'opcion': data[`radio-group${a}`],
+                        'rutasId': ruta.id,
+                        'respuestas':[{'numRespuesta':1, 'respuesta': data[`opcion${a}1`]},{'numRespuesta':2, 'respuesta': data[`opcion${a}2`]},{'numRespuesta':3, 'respuesta': data[`opcion${a}3`]}]
+                    }),
+            }).then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => console.log('Success:', response));
+        })}
+        
+    }
+
     return(
         <div>
-            <Form>
+            <Form onFinish={guardarPreguntas}>
                 {ruta && ruta.rutas_loc.map((loc,a)=>{
                     return <div>
                                 <Form.Item key={"preg"+a} name={"preg"+a} label={"Pregunta nº"+a}>
@@ -34,6 +57,7 @@ const AnadirPregunta = () =>{
                                 </Form.Item>
                             </div>
                 })}
+                <Button htmlType="submit">Guardar preguntas</Button>
             </Form>
         </div>
     )

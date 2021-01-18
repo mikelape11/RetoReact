@@ -73,7 +73,7 @@ const UserTable = () =>{
         {title:'ID',dataIndex:'_id',key:'_id'},{title: 'Nombre de usuario',dataIndex:'usuario',key:'usuario', ...getColumnSearchProps('usuario')},{ title: 'Contraseña',  dataIndex:'password',key:'password'},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>retrieveRoute(record.id)} icon={<EditOutlined />}/><Button onClick={()=>deleteRoute(record.id)} icon={<DeleteOutlined />}/></b>} 
     ]
     const retrieveRoute = id =>{
-        window.location.href=`agentconfig/update/${id}`
+        window.location.href=`usuarios/update/${id}`
     }
     const deleteRoute = id =>{
       fetch(`http://localhost:8080/usuarios/${id}`,{

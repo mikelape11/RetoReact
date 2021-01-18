@@ -74,16 +74,13 @@ const RouteCreator = () => {
   }
   //Funcion para deshacer
   const deshacerRuta = () => {
-    var p = false;
-    var indexaux=0;
     console.log(clickAux)
-      
-    setTrack(track.filter(item => item!=clickAux))
-      
-      //setJoinList(joinList.filter((e)=>(e !== name)))
-      //un intento de deshacer, de momento no hace nada
-      //el problema es que, al guardarse en el array se reducen los decimales
-      console.log(track)
+    setTrack(track.filter(item => console.log(item)))
+    //setJoinList(joinList.filter((e)=>(e !== name)))
+    //un intento de deshacer, de momento no hace nada
+    //el problema es que, al guardarse en el array se reducen los decimales
+    //students.findIndex(std=> std.id === 200);
+    console.log(track)
 
   }
 
@@ -98,12 +95,15 @@ const RouteCreator = () => {
     fetch(`http://localhost:8080/routes/save`,{
       method: 'POST',
       headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
       body:
         JSON.stringify({
           nombre: values.nombre,
+          ciudad: values.ciudad,
+          distancia: distancia,
+          tiempo: tiempo,
           rutas_data: track,
           rutas_loc: markers,
         })
@@ -118,6 +118,9 @@ const RouteCreator = () => {
     <div>
         <Form onFinish={GuardarRuta}>
           <Form.Item label="Nombre" name="nombre" rules={[{ required: true, message: 'El nombre es obligatorio!!' }]}>
+              <Input/>
+          </Form.Item>
+          <Form.Item label="Ciudad" name="ciudad" rules={[{ required: true, message: 'La ciudad es obligatoria!!' }]}>
               <Input/>
           </Form.Item>
           <Button htmlType="submit">Guardar Ruta</Button>
