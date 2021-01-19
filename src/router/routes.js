@@ -5,8 +5,8 @@ import Map from '../pages/Map/ReadMap'
 import RouteCreator from '../pages/Map/CreateRoute'
 import AnadirPregunta from '../pages/Map/AddPreguntas'
 import Preguntas from '../pages/Preguntas'
+import Ranking from '../pages/Ranking'
 import UserTable from '../pages/Usuarios'
-import UpdateUsuario from '../pages/Usuarios/UpdateUsuario'
 
 export const routes = [
     {
@@ -44,17 +44,17 @@ export const routes = [
         body: ()=><Preguntas/>
     },
     {
+        key: "6",
+        path:"/ranking",
+        exact: true,
+        text: "Ranking",
+        body: ()=><Ranking/>
+    },
+    {
         key: "7",
         path:"/usuarios",
         exact: true,
         text: "Usuarios",
         body: ()=><UserTable/>
-    },
-    {
-        key: "8",
-        path:"/usuarios/update/{id}",
-        exact: true,
-        text: "Usuarios",
-        body: ()=><UpdateUsuario/>
     }
 ];

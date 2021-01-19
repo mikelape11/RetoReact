@@ -70,7 +70,7 @@ const RouteTable = () =>{
        setSearchText('');
     };
     const columns = [
-        {title:'ID',dataIndex:'id',key:'id'},{title: 'Nombre Ruta',dataIndex:'nombre',key:'nombre', ...getColumnSearchProps('name')},{ title: 'Distancia',  dataIndex:'distancia',key:'distancia'},{title:'Tiempo est.', dataIndex: 'tiempo', key:'tiempo'},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>readRoute(record.id)} icon={<EyeOutlined />}></Button><Button onClick={()=>retrieveRoute(record.id)} icon={<EditOutlined />}/><Button onClick={()=>deleteRoute(record.id)} icon={<DeleteOutlined />}/></b>} 
+        {title:'ID',dataIndex:'id',key:'id'},{title: 'Nombre Ruta',dataIndex:'nombre',key:'nombre', ...getColumnSearchProps('name')},{ title: 'Distancia(km)',  dataIndex:'distancia',key:'distancia', render: (_, record)=><p>{(Math.round((record.distancia/1000)*100))/100}</p>},{title:'Tiempo est.(min)', dataIndex: 'tiempo', key:'tiempo', render: (_, record)=><p>{Math.round((record.tiempo/1000)/60)}</p>},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>readRoute(record.id)} icon={<EyeOutlined />}></Button><Button onClick={()=>retrieveRoute(record.id)} icon={<EditOutlined />}/><Button onClick={()=>deleteRoute(record.id)} icon={<DeleteOutlined />}/></b>} 
     ]
     const readRoute = id => {
       window.location.href=`routes/${id}`
@@ -80,6 +80,14 @@ const RouteTable = () =>{
     }
     const deleteRoute = id =>{
       fetch(`http://localhost:8080/routes/${id}`,{
+        method: 'DELETE',
+        headers: {
+          'Content-Type':'application/json',
+        }
+      }).then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => console.log('Success:', response));
+      fetch(`http://localhost:8080/preguntas/${id}`,{
         method: 'DELETE',
         headers: {
           'Content-Type':'application/json',

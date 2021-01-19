@@ -80,3 +80,31 @@
   letter-spacing: 3px;
   font-weight: bold;
 }
+.panel-heading{
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #337ab7;
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.panel-body{
+background-color: #fff;
+padding: 15px;
+}
+*{
+box-sizing: border-box;
+}
+.panel{
+  margin-bottom: 60px;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  border-color: #337ab7;
+}
+.rtt-input{
+background-color: #fff;
+margin: 20px;
+border: 1px solid;
+}

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 //Leaflet
 import 'leaflet/dist/leaflet.css';
 import {Table, Button, Input, Space, Breadcrumb, Typography, Row, Col} from 'antd';
-import { EditOutlined, DeleteOutlined, SearchOutlined, PlusOutlined, EyeOutlined } from '@ant-design/icons';
+import {DeleteOutlined, SearchOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import Highlighter from 'react-highlight-words';
 // eslint-disable-next-line
@@ -70,11 +70,9 @@ const UserTable = () =>{
        setSearchText('');
     };
     const columns = [
-        {title:'ID',dataIndex:'_id',key:'_id'},{title: 'Nombre de usuario',dataIndex:'usuario',key:'usuario', ...getColumnSearchProps('usuario')},{ title: 'Contraseña',  dataIndex:'password',key:'password'},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>retrieveRoute(record.id)} icon={<EditOutlined />}/><Button onClick={()=>deleteRoute(record.id)} icon={<DeleteOutlined />}/></b>} 
+        {title:'ID',dataIndex:'_id',key:'_id'},{title: 'Nombre de usuario',dataIndex:'usuario',key:'usuario', ...getColumnSearchProps('usuario')},{ title: 'Contraseña',  dataIndex:'password',key:'password'},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>deleteRoute(record.id)} icon={<DeleteOutlined />}/></b>} 
     ]
-    const retrieveRoute = id =>{
-        window.location.href=`usuarios/update/${id}`
-    }
+    
     const deleteRoute = id =>{
       fetch(`http://localhost:8080/usuarios/${id}`,{
         method: 'DELETE',

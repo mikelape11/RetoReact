@@ -15,6 +15,7 @@ const Preguntas = () =>{
             .then(res => res.json())
             .then(
                 (result)=>{
+                    // eslint-disable-next-line
                     result && result.map((ruta)=>{
                         setAux(aux =>[...aux, ruta.ciudad])
                     })
@@ -22,7 +23,7 @@ const Preguntas = () =>{
                 }
             )
         }
-        
+    // eslint-disable-next-line
     },[aux])
     
     const RutasCiudad = (e) =>{
@@ -47,11 +48,6 @@ const Preguntas = () =>{
                 }
             )
     }
-
-    //hay que hacer que reciba todas las ciudades de las rutas que hayen una array/lista sin que se repitan
-    //mas o menos hecho, spring es una puta mierda
-    
-    //cambiar estructura de preguntas
     return(
         <div>
             {ciudades ? <Select onChange={RutasCiudad}>

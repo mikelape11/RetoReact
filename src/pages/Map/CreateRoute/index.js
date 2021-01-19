@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 //Leaflet
-import { MapContainer, TileLayer, Popup, Marker, Polyline, useMapEvents } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Polyline, useMapEvents } from 'react-leaflet'
 
 import {routingService} from '../../../services/routing'
 
 //Import Leaflet and plugins
-import L, { marker } from 'leaflet';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {Button, Form, Input} from 'antd';
 

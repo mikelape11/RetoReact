@@ -15,8 +15,8 @@ const AnadirPregunta = () =>{
     },[])
 
     const guardarPreguntas = (data) =>{
-        
-        {ruta && ruta.rutas_loc.map((loc,a)=>{
+        // eslint-disable-next-line
+        ruta && ruta.rutas_loc.map((loc,a)=>{
             fetch('http://localhost:8080/preguntas/guardar',{
                 method: 'POST',
                 headers: {
@@ -33,7 +33,7 @@ const AnadirPregunta = () =>{
             }).then(res => res.json())
             .catch(error => console.error('Error:', error))
             .then(response => console.log('Success:', response));
-        })}
+        })
         
     }
 
