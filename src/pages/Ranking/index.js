@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import { Input, Select, Form, Radio, Table, Button, Space } from 'antd';
+import { Input, Select, Form, Radio, Table, Button, Space, Row, Col, Breadcrumb, Typography } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
 import Highlighter from 'react-highlight-words';
+
+const {Title, Text} = Typography;
 
 
 const {Option} = Select;
@@ -103,34 +105,47 @@ const Ranking = () =>{
     }
 
     const RankingRuta = (e) =>{
-        console.log(e)
-        fetch(`http://localhost:8080/ranking/${e}`)
-            .then(res => res.json())
-            .then(
-                (result)=>{
-                   console.log(result)
-                   setRank(result)
-                }
-            )
+      fetch(`http://localhost:8080/ranking/${e}`)
+          .then(res => res.json())
+          .then(
+              (result)=>{
+                 console.log(result)
+                 setRank(result)
+              }
+          )
     }
 
     return (
-        <div>
-            {ciudades ? <Select onChange={RutasCiudad}>
+      <div>
+        <Row justify={'space-between'}>
+          <Col span={12}><Title>Gestión de Rankings <Text type="secondary">Tabla</Text></Title></Col>
+          <Col span={12}>
+            <Breadcrumb separator=">" >
+              <Breadcrumb.Item>Gestión de Rankings</Breadcrumb.Item>
+              <Breadcrumb.Item>Tabla de datos</Breadcrumb.Item>
+            </Breadcrumb>
+          </Col>
+        </Row>
+        <Row justify="space-between">
+          <Col span={12}>
+            {ciudades ? <Select showSearch placeholder="Seleccione una ciudad" onChange={RutasCiudad}>
                 {ciudades && ciudades.map((ciudad,a)=>{
                     return <Option key={'ciudad'+a} value={ciudad}>{ciudad}</Option>
                 }
                 )}
             </Select>: null}
-            <h1>{ciudades}</h1>
-            {rutas ? <Select onChange={RankingRuta}>
+          </Col>
+          <Col span={12}>
+            {rutas ? <Select showSearch placeholder="Seleccione una ruta" onChange={RankingRuta}>
                 {rutas && rutas.map((ruta,a)=>{
                     return <Option key={'ruta'+a} value={ruta.id}>{ruta.nombre}</Option>
                 }
                 )}
             </Select>: null}
-            {rank ? <Table dataSource={rank} columns={columns} rowKey='id'></Table>: null}
-        </div>
+          </Col>
+        </Row>
+        {rank ? <Table dataSource={rank} columns={columns} rowKey='id'></Table>: null}
+      </div>
     )
 }
 

@@ -125,7 +125,7 @@ const RouteTable = () =>{
         <Row>
           <Button icon={<PlusOutlined />}><Link to="/routes_create">Añadir nueva ruta</Link></Button>
         </Row>
-           <Table dataSource={routes} columns={columns} rowKey='id'></Table>
+        <Table dataSource={routes} columns={columns} rowKey='id'></Table>
        </div>
     )
 }

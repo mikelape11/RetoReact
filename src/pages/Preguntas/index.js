@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import { Input, Select, Form, Radio } from 'antd';
+import { Input, Select, Form, Breadcrumb, Typography, Radio, Row, Col, Button } from 'antd';
 
 const {Option} = Select;
+
+const {Title, Text} = Typography;
 
 const Preguntas = () =>{
     const [ciudades, setCiudades] = useState(null);
@@ -48,46 +50,63 @@ const Preguntas = () =>{
                 }
             )
     }
+
+    const ActPreguntas = (data) =>{
+        console.log(data)
+    }
     return(
         <div>
-            {ciudades ? <Select onChange={RutasCiudad}>
-                {ciudades && ciudades.map((ciudad,a)=>{
-                    return <Option key={'ciudad'+a} value={ciudad}>{ciudad}</Option>
-                }
-                )}
-            </Select>: null}
-            <h1>{ciudades}</h1>
-            {rutas ? <Select onChange={PreguntasRuta}>
-                {rutas && rutas.map((ruta,a)=>{
-                    return <Option key={'ruta'+a} value={ruta.id}>{ruta.nombre}</Option>
-                }
-                )}
-            </Select>: null}
-            
+            <Row justify={'space-between'}>
+              <Col span={12}><Title>Gestión de Preguntas <Text type="secondary">Formulario</Text></Title></Col>
+              <Col span={12}>
+                <Breadcrumb separator=">" >
+                  <Breadcrumb.Item>Gestión de Preguntas</Breadcrumb.Item>
+                  <Breadcrumb.Item>Modificaciones y lectura</Breadcrumb.Item>
+                </Breadcrumb>
+              </Col>
+            </Row>
+            <Row justify="space-between">
+                <Col span={12}>
+                    {ciudades ? <Select showSearch placeholder="Seleccione una ciudad" onChange={RutasCiudad}>
+                        {ciudades && ciudades.map((ciudad,a)=>{
+                            return <Option key={'ciudad'+a} value={ciudad}>{ciudad}</Option>
+                        }
+                        )}
+                    </Select>: <p>Cargando...</p>}
+                </Col>
+                <Col span={12}>
+                    {rutas ? <Select showSearch placeholder="Seleccione una ruta" onChange={PreguntasRuta}>
+                        {rutas && rutas.map((ruta,a)=>{
+                            return <Option key={'ruta'+a} value={ruta.id}>{ruta.nombre}</Option>
+                        }
+                        )}
+                    </Select>: null}
+                </Col>
+            </Row>
             {preg ? 
-                <Form>
+                <Form onFinish={ActPreguntas}>
                     {preg && preg.map((p,a)=>{
                         console.log(p)
                         return <div key={"pregunta"+a}>
-                            <Form.Item key={"preg"+a} name={"preg"+a} label={"Pregunta nº"+p.numPregunta} initialValue={p.pregunta}>
+                            <Form.Item key={"preg"+a} name={"preg"+a} label={"Pregunta nº"+p.numPregunta} required initialValue={p.pregunta}>
                                 <Input></Input>
                             </Form.Item>
-                            <Form.Item key={"opcion"+a+p.respuestas[0].numRespuesta} name={"opcion"+a+p.respuestas[0].numRespuesta} label={"Respuesta "+p.respuestas[0].numRespuesta} initialValue={p.respuestas[0].respuesta}><Input></Input></Form.Item>
-                            <Form.Item key={"opcion"+a+p.respuestas[1].numRespuesta} name={"opcion"+a+p.respuestas[1].numRespuesta} label={"Respuesta "+p.respuestas[1].numRespuesta} initialValue={p.respuestas[1].respuesta}><Input></Input></Form.Item>
-                            <Form.Item key={"opcion"+a+p.respuestas[2].numRespuesta} name={"opcion"+a+p.respuestas[2].numRespuesta} label={"Respuesta "+p.respuestas[2].numRespuesta} initialValue={p.respuestas[2].respuesta}><Input></Input></Form.Item>
-                            <Form.Item name={"radio-group"+a} label="Respuesta correcta♥">
-                              <Radio.Group defaultValue={p.opcion}>
-                                <Radio value={1}>Respuesta 1</Radio>
-                                <Radio value={2}>Respuesta 2</Radio>
-                                <Radio value={3}>Respuesta 3</Radio>
-                              </Radio.Group>
+                            <Form.Item required key={"opcion"+a+p.respuestas[0].numRespuesta} name={"opcion"+a+p.respuestas[0].numRespuesta} label={"Respuesta "+p.respuestas[0].numRespuesta} initialValue={p.respuestas[0].respuesta}><Input></Input></Form.Item>
+                            <Form.Item required key={"opcion"+a+p.respuestas[1].numRespuesta} name={"opcion"+a+p.respuestas[1].numRespuesta} label={"Respuesta "+p.respuestas[1].numRespuesta} initialValue={p.respuestas[1].respuesta}><Input></Input></Form.Item>
+                            <Form.Item required key={"opcion"+a+p.respuestas[2].numRespuesta} name={"opcion"+a+p.respuestas[2].numRespuesta} label={"Respuesta "+p.respuestas[2].numRespuesta} initialValue={p.respuestas[2].respuesta}><Input></Input></Form.Item>
+                            <Form.Item name={"radio-group"+a} label="Respuesta correcta" required>
+                                {/*al mandar los datos pone undefined aunque esté marcado desde el inicio*/}
+                                <Radio.Group value={p.opcion} defaultValue={p.opcion}>
+                                    <Radio value={1}>Respuesta 1</Radio>
+                                    <Radio value={2}>Respuesta 2</Radio>
+                                    <Radio value={3}>Respuesta 3</Radio>
+                                </Radio.Group>
                             </Form.Item>
                         </div>
                     })}
+                    <Button htmlType="submit">Actualizar preguntas</Button>
                 </Form>
             : null}
-            
-            
         </div>
     )
 }
