@@ -73,7 +73,7 @@ const Ranking = () =>{
        setSearchText('');
     };
     const columns = [
-        {title:'ID',dataIndex:'id',key:'id'},{title: 'Usuario',dataIndex:'nombre',key:'nombre', ...getColumnSearchProps('name')},{ title: 'Puntos',  dataIndex:'puntos',key:'puntos'},{title:'Aciertos', dataIndex: 'aciertos', key:'aciertos'},{title:'Fallos', dataIndex: 'fallos', key:'fallos'},{title:'Tiempo', dataIndex: 'tiempo', key:'tiempo'},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b>o</b>} 
+        {title:'ID',dataIndex:'_id',key:'_id'},{title: 'Usuario',dataIndex:'nombre',key:'nombre', ...getColumnSearchProps('name')},{ title: 'Puntos',  dataIndex:'puntos',key:'puntos'},{title:'Aciertos', dataIndex: 'aciertos', key:'aciertos'},{title:'Fallos', dataIndex: 'fallos', key:'fallos'},{title:'Tiempo', dataIndex: 'tiempo', key:'tiempo'},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b>o</b>} 
     ]
     useEffect( ()=>{
         if(!ciudades){
@@ -93,15 +93,15 @@ const Ranking = () =>{
     },[aux])
 
     const RutasCiudad = (e) =>{
-        fetch(`http://localhost:8080/routes/ciudad/${e}`)
-            .then(res => res.json())
-            .then(
-                (result)=>{
-                    console.log(result)
-                    setRutas(result)
-                    console.log(rutas)
-                }
-            )
+      fetch(`http://localhost:8080/routes/ciudad/${e}`)
+          .then(res => res.json())
+          .then(
+              (result)=>{
+                  console.log(result)
+                  setRutas(result)
+                  console.log(rutas)
+              }
+          )
     }
 
     const RankingRuta = (e) =>{
@@ -144,7 +144,7 @@ const Ranking = () =>{
             </Select>: null}
           </Col>
         </Row>
-        {rank ? <Table dataSource={rank} columns={columns} rowKey='id'></Table>: null}
+        {rank ? <Table dataSource={rank} columns={columns} rowKey='_id'></Table>: null}
       </div>
     )
 }

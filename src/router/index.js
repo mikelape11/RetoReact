@@ -86,6 +86,11 @@ const Routes = () => {
                   Gestion de Usuarios
                 </Link>
               </Menu.Item>
+              <Menu.Item key="chat" icon={<mapaSVG/>}>
+                <Link to="/chats">
+                  Gestion de Chats
+                </Link>
+              </Menu.Item>
             <Button onClick={() => logout()}>Cerrar sesión</Button>
           </Menu>
         </Sider>

@@ -7,6 +7,8 @@ import AnadirPregunta from '../pages/Map/AddPreguntas'
 import Preguntas from '../pages/Preguntas'
 import Ranking from '../pages/Ranking'
 import UserTable from '../pages/Usuarios'
+import Home from '../pages/Chat'
+import ChatRoom from '../pages/Chat/ChatRoom'
 
 export const routes = [
     {
@@ -56,5 +58,19 @@ export const routes = [
         exact: true,
         text: "Usuarios",
         body: ()=><UserTable/>
+    },
+    {
+        key: "8",
+        path:"/chats",
+        exact: true,
+        text: "Chats",
+        body: ()=><Home/>
+    },
+    {
+        key: "8",
+        path:"/chats/:roomId",
+        exact: true,
+        text: "Chats",
+        body: ()=><ChatRoom/>
     }
 ];

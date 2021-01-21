@@ -8,6 +8,10 @@ import 'leaflet-extra-markers/dist/js/leaflet.extra-markers.js.map';
 import 'leaflet-extra-markers/dist/js/leaflet.extra-markers.min.js';
 import 'leaflet-extra-markers/dist/js/leaflet.extra-markers.js';
 import 'leaflet-extra-markers/dist/css/leaflet.extra-markers.min.css';
+import { Row, Col, Breadcrumb, Typography } from 'antd';
+
+const {Title, Text} = Typography;
+
 
 const Map = () =>{
     const [ruta, setRuta] = useState(null)
@@ -67,32 +71,50 @@ const Map = () =>{
       }
 
     return ruta ? (
-        <MapContainer center={[43.25, -1.25]} zoom={5} style={{ height: 'calc(105vh - 210px)' }}>
-            <TileLayer attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"/>
-            {ruta ? <ChangeView/> : null}
-            {ruta.rutas_data && ruta.rutas_data.map((ll,a)=>{
-                if(a===0){
-                    return null
-                }
-                return <Polyline  key={'latlng'+a} weight={4} positions={[[ruta.rutas_data[a-1].lat, ruta.rutas_data[a-1].lng],[ll.lat, ll.lng]]}></Polyline>
-            })}
-            {ruta.rutas_loc && ruta.rutas_loc.map((mrkr,a)=>{
-                let descMarker = new L.ExtraMarkers.Icon({
-                     markerColor: 'blue', icon: 'fa-number', number: `${a+1}`
-                });
-                return <Marker key={'marker'+a} icon={descMarker} position={[mrkr.lat, mrkr.lng]} eventHandlers={{
-                    mouseover:()=>{
-                        let aux = pregunta.find(element => element.numPregunta===(a+1))
-                        setDivData(aux)
-                        setDivVisible(true);
-                    },
-                    mouseout:()=>{
-                        setDivVisible(false);
+        <div>
+            <Row justify={'space-between'}>
+                <Col span={12}><Title>Gestión de rutas <Text type="secondary">Consulta</Text></Title></Col>
+                <Col span={12}>
+                    <Breadcrumb separator=">" >
+                        <Breadcrumb.Item>Gestión de Rutas</Breadcrumb.Item>
+                        <Breadcrumb.Item>Tabla de datos</Breadcrumb.Item>
+                        <Breadcrumb.Item>Consulta de ruta</Breadcrumb.Item>
+                    </Breadcrumb>
+                </Col>
+            </Row>
+            <Row justify="space-between">
+                <Col><h1>Nombre: {ruta.nombre}</h1></Col>
+                <Col><h1>Ciudad: {ruta.ciudad}</h1></Col>
+                <Col><h1>Distancia: {(Math.round((ruta.distancia/1000)*100))/100} km</h1></Col>
+                <Col><h1>Tiempo estimado: {Math.round((ruta.tiempo/1000)/60)} min</h1></Col>
+            </Row>
+            <MapContainer center={[43.25, -1.25]} zoom={5} style={{ height: 'calc(105vh - 210px)' }}>
+                {divVisible ? <DivPreguntas/> : null}
+                <TileLayer attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"/>
+                {ruta ? <ChangeView/> : null}
+                {ruta.rutas_data && ruta.rutas_data.map((ll,a)=>{
+                    if(a===0){
+                        return null
                     }
-                }}></Marker>
-            })}
-            {divVisible ? <DivPreguntas/> : null}
-        </MapContainer>
+                    return <Polyline  key={'latlng'+a} weight={4} positions={[[ruta.rutas_data[a-1].lat, ruta.rutas_data[a-1].lng],[ll.lat, ll.lng]]}></Polyline>
+                })}
+                {ruta.rutas_loc && ruta.rutas_loc.map((mrkr,a)=>{
+                    let descMarker = new L.ExtraMarkers.Icon({
+                         markerColor: 'blue', icon: 'fa-number', number: `${a+1}`
+                    });
+                    return <Marker key={'marker'+a} icon={descMarker} position={[mrkr.lat, mrkr.lng]} eventHandlers={{
+                        mouseover:()=>{
+                            let aux = pregunta.find(element => element.numPregunta===(a+1))
+                            setDivData(aux)
+                            setDivVisible(true);
+                        },
+                        mouseout:()=>{
+                            setDivVisible(false);
+                        }
+                    }}></Marker>
+                })}
+            </MapContainer>
+        </div>
     ) : <p>Cargando...</p>
 }
 

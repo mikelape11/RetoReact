@@ -8,7 +8,10 @@ import {routingService} from '../../../services/routing'
 //Import Leaflet and plugins
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {Button, Form, Input} from 'antd';
+import {Button, Form, Input, Breadcrumb, Row, Col, Typography} from 'antd';
+
+const {Title, Text} = Typography;
+
 
 //estado por defecto
 const INITIAL_STATE = {
@@ -116,6 +119,15 @@ const RouteCreator = () => {
   
   return (
     <div>
+      <Row justify={'space-between'}>
+          <Col span={12}><Title>Gestión de rutas <Text type="secondary">Creación</Text></Title></Col>
+          <Col span={12}>
+            <Breadcrumb separator=">" >
+              <Breadcrumb.Item>Gestión de Rutas</Breadcrumb.Item>
+              <Breadcrumb.Item>Creación de ruta</Breadcrumb.Item>
+            </Breadcrumb>
+          </Col>
+        </Row>
         <Form onFinish={GuardarRuta}>
           <Form.Item label="Nombre" name="nombre" rules={[{ required: true, message: 'El nombre es obligatorio!!' }]}>
               <Input/>

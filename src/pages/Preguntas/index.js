@@ -40,6 +40,7 @@ const Preguntas = () =>{
             )
     }
     const PreguntasRuta = (e) =>{
+        setPreg(null)
         console.log(e)
         fetch(`http://localhost:8080/preguntas/${e}`)
             .then(res => res.json())
@@ -53,6 +54,34 @@ const Preguntas = () =>{
 
     const ActPreguntas = (data) =>{
         console.log(data)
+        preg && preg.map((p,index)=>{
+            fetch(`http://localhost:8080/preguntas/${p._id}`,{
+                method: 'PUT',
+                headers: {
+                    'Content-Type':'application/json',
+                },
+                body: JSON.stringify({
+                    'pregunta': data[`preg`+index],
+                    'opcion' : data[`radio-group`+index],
+                    'respuestas':[
+                        {
+                            'numRespuesta': 1,
+                            'respuesta': data[`opcion${index}1`]
+                        },{
+                            'numRespuesta': 2,
+                            'respuesta': data[`opcion${index}2`]}
+                        ,{
+                            'numRespuesta': 3,
+                            'respuesta': data[`opcion${index}3`]
+                        }
+                    ]
+                })
+            }).then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => console.log('Success:', response));
+            window.location.reload();
+
+        })
     }
     return(
         <div>
@@ -94,9 +123,9 @@ const Preguntas = () =>{
                             <Form.Item required key={"opcion"+a+p.respuestas[0].numRespuesta} name={"opcion"+a+p.respuestas[0].numRespuesta} label={"Respuesta "+p.respuestas[0].numRespuesta} initialValue={p.respuestas[0].respuesta}><Input></Input></Form.Item>
                             <Form.Item required key={"opcion"+a+p.respuestas[1].numRespuesta} name={"opcion"+a+p.respuestas[1].numRespuesta} label={"Respuesta "+p.respuestas[1].numRespuesta} initialValue={p.respuestas[1].respuesta}><Input></Input></Form.Item>
                             <Form.Item required key={"opcion"+a+p.respuestas[2].numRespuesta} name={"opcion"+a+p.respuestas[2].numRespuesta} label={"Respuesta "+p.respuestas[2].numRespuesta} initialValue={p.respuestas[2].respuesta}><Input></Input></Form.Item>
-                            <Form.Item name={"radio-group"+a} label="Respuesta correcta" required>
+                            <Form.Item name={"radio-group"+a} label="Respuesta correcta" required initialValue={p.opcion}>
                                 {/*al mandar los datos pone undefined aunque esté marcado desde el inicio*/}
-                                <Radio.Group value={p.opcion} defaultValue={p.opcion}>
+                                <Radio.Group>
                                     <Radio value={1}>Respuesta 1</Radio>
                                     <Radio value={2}>Respuesta 2</Radio>
                                     <Radio value={3}>Respuesta 3</Radio>

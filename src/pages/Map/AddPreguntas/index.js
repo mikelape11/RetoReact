@@ -34,6 +34,7 @@ const AnadirPregunta = () =>{
             .catch(error => console.error('Error:', error))
             .then(response => console.log('Success:', response));
         })
+        window.location.href=`/routes/${ruta.id}`
         
     }
 
