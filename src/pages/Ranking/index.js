@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Input, Select, Form, Radio, Table, Button, Space, Row, Col, Breadcrumb, Typography } from 'antd';
+import { Input, Select, Table, Button, Space, Row, Col, Breadcrumb, Typography } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
 import Highlighter from 'react-highlight-words';
@@ -138,7 +138,7 @@ const Ranking = () =>{
           <Col span={12}>
             {rutas ? <Select showSearch placeholder="Seleccione una ruta" onChange={RankingRuta}>
                 {rutas && rutas.map((ruta,a)=>{
-                    return <Option key={'ruta'+a} value={ruta.id}>{ruta.nombre}</Option>
+                    return <Option key={'ruta'+a} value={ruta._id}>{ruta.nombre}</Option>
                 }
                 )}
             </Select>: null}

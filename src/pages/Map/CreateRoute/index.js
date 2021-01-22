@@ -28,7 +28,7 @@ const INITIAL_STATE = {
 }
 
 const RouteCreator = () => {
-  const [mapState, setMapState] = useState(INITIAL_STATE); //Estado por defecto
+  const [mapState] = useState(INITIAL_STATE); //Estado por defecto
   const [rutaClick, setRutaClick] = useState(null);
   const [track, setTrack] = useState([]);
   const [markers, setMarkers] = useState([])
@@ -45,6 +45,7 @@ const RouteCreator = () => {
   
   //Creador de ruta
   const CrearRuta = () =>{
+  // eslint-disable-next-line
     const map = useMapEvents({
       click: (e) => {
         if(rutaClick===null){
@@ -68,6 +69,7 @@ const RouteCreator = () => {
 
   //Funcion para añadir los puntos de las preguntas
   const CrearPuntos = () =>{
+  // eslint-disable-next-line
     const map = useMapEvents({
       click:(e)=>{//hay que poner limite de 10 puntos
         setMarkers([...markers, e.latlng])

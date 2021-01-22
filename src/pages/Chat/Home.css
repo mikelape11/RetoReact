@@ -9,9 +9,9 @@
 }
 
 .text-input-field {
-    padding: 24px 12px;
+    padding: 12px 6px;
     border-radius: 7px;
-    font-size: 24px;
+    font-size: 12px;
 }
 
 .text-input-field:focus {
@@ -20,11 +20,11 @@
 
 .enter-room-button {
     margin-top: 20px;
-    padding: 24px 12px;
+    padding: 12px 6px;
     font-size: 28px;
     background: #31a24c;
     color: white;
-    font-weight: 400;
+    font-weight: 200;
     text-align: center;
     text-decoration: none;
     border-radius: 7px;

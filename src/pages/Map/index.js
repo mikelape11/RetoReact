@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 //Leaflet
 import 'leaflet/dist/leaflet.css';
 import {Table, Button, Input, Space, Breadcrumb, Typography, Row, Col} from 'antd';
-import { EditOutlined, DeleteOutlined, SearchOutlined, PlusOutlined, EyeOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, SearchOutlined, PlusOutlined, EyeOutlined, MessageOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import Highlighter from 'react-highlight-words';
 // eslint-disable-next-line
@@ -70,10 +70,13 @@ const RouteTable = () =>{
        setSearchText('');
     };
     const columns = [
-        {title:'ID',dataIndex:'id',key:'id'},{title: 'Nombre Ruta',dataIndex:'nombre',key:'nombre', ...getColumnSearchProps('name')},{ title: 'Distancia(km)',  dataIndex:'distancia',key:'distancia', render: (_, record)=><p>{(Math.round((record.distancia/1000)*100))/100}</p>},{title:'Tiempo est.(min)', dataIndex: 'tiempo', key:'tiempo', render: (_, record)=><p>{Math.round((record.tiempo/1000)/60)}</p>},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>readRoute(record.id)} icon={<EyeOutlined />}></Button><Button onClick={()=>retrieveRoute(record.id)} icon={<EditOutlined />}/><Button onClick={()=>deleteRoute(record.id)} icon={<DeleteOutlined />}/></b>} 
+        {title:'ID',dataIndex:'_id',key:'_id'},{title: 'Nombre Ruta',dataIndex:'nombre',key:'nombre', ...getColumnSearchProps('name')},{ title: 'Distancia(km)',  dataIndex:'distancia',key:'distancia', render: (_, record)=><p>{(Math.round((record.distancia/1000)*100))/100}</p>},{title:'Tiempo est.(min)', dataIndex: 'tiempo', key:'tiempo', render: (_, record)=><p>{Math.round((record.tiempo/1000)/60)}</p>},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>readRoute(record._id)} icon={<EyeOutlined />}></Button><Button onClick={()=>retrieveRoute(record.id)} icon={<EditOutlined />}/><Button onClick={()=>deleteRoute(record._id)} icon={<DeleteOutlined />}/><Button onClick={()=>goChat(record.nombre)} icon={<MessageOutlined />}></Button></b>} 
     ]
     const readRoute = id => {
       window.location.href=`routes/${id}`
+    }
+    const goChat = id => {
+      window.location.href=`chats/${id}`
     }
     const retrieveRoute = id =>{
         window.location.href=`agentconfig/update/${id}`
@@ -125,7 +128,7 @@ const RouteTable = () =>{
         <Row>
           <Button icon={<PlusOutlined />}><Link to="/routes_create">Añadir nueva ruta</Link></Button>
         </Row>
-        <Table dataSource={routes} columns={columns} rowKey='id'></Table>
+        <Table dataSource={routes} columns={columns} rowKey='_id'></Table>
        </div>
     )
 }

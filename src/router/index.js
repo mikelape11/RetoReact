@@ -4,10 +4,10 @@ import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 //Estructura
-import { Layout, Menu, Row, Button, Image } from "antd";
+import { Layout, Menu, Button, } from "antd";
 
 // Styles
-import { Logo, Wrapper, ImgHeader } from "./styles";
+import { Logo, Wrapper,  } from "./styles";
 
 
 
@@ -15,15 +15,12 @@ import { Logo, Wrapper, ImgHeader } from "./styles";
 import { routes } from "./routes";
 
 import { AuthContext } from "../App";
-import { SVG } from "leaflet";
 
 //CONSEJO -- Los "const" siempre por debajo de los import
-const mapaSVG = '/public/openstreetmap.svg'
 
 // Layout
-const { Header, Content, Footer, Sider } = Layout;
+const {  Content, Footer, Sider } = Layout;
 
-const { SubMenu } = Menu;
 
 
 const Routes = () => {
@@ -34,7 +31,7 @@ const Routes = () => {
   //Reducer del contexto, para hacer logout
   const { dispatch } = useContext(AuthContext);
 
-  
+  // eslint-disable-next-line
   const getKey=(e)=>{
     localStorage.setItem("sub-item", e.keyPath[1]);
     localStorage.setItem("item", e.key);
@@ -84,11 +81,6 @@ const Routes = () => {
               <Menu.Item key="usuarios" icon={<mapaSVG/>}>
                 <Link to="/usuarios">
                   Gestion de Usuarios
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="chat" icon={<mapaSVG/>}>
-                <Link to="/chats">
-                  Gestion de Chats
                 </Link>
               </Menu.Item>
             <Button onClick={() => logout()}>Cerrar sesión</Button>

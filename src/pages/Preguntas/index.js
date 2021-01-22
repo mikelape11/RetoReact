@@ -53,7 +53,7 @@ const Preguntas = () =>{
     }
 
     const ActPreguntas = (data) =>{
-        console.log(data)
+        // eslint-disable-next-line
         preg && preg.map((p,index)=>{
             fetch(`http://localhost:8080/preguntas/${p._id}`,{
                 method: 'PUT',
@@ -80,7 +80,6 @@ const Preguntas = () =>{
             .catch(error => console.error('Error:', error))
             .then(response => console.log('Success:', response));
             window.location.reload();
-
         })
     }
     return(
@@ -106,7 +105,7 @@ const Preguntas = () =>{
                 <Col span={12}>
                     {rutas ? <Select showSearch placeholder="Seleccione una ruta" onChange={PreguntasRuta}>
                         {rutas && rutas.map((ruta,a)=>{
-                            return <Option key={'ruta'+a} value={ruta.id}>{ruta.nombre}</Option>
+                            return <Option key={'ruta'+a} value={ruta._id}>{ruta.nombre}</Option>
                         }
                         )}
                     </Select>: null}

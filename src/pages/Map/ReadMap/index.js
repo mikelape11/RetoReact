@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 
 //Leaflet
-import { MapContainer, TileLayer, Polyline, useMap, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Polyline, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-extra-markers/dist/js/leaflet.extra-markers.js.map';
@@ -18,6 +18,9 @@ const Map = () =>{
     const [pregunta, setPregunta] = useState(null)
     const [divVisible, setDivVisible] = useState(false);
     const [divData, setDivData] = useState(null);
+
+    const [position/*, setPosition */] = useState([51.505, -0.09])
+    const [zoom, setZoom] = useState(13)
 
 
     useEffect(()=>{
@@ -64,11 +67,24 @@ const Map = () =>{
         )
     }
 
-    function ChangeView () {
-        const map = useMap();
-        map.setView([ruta.rutas_data[Math.trunc((ruta.rutas_data.length)/2)].lat, ruta.rutas_data[Math.trunc((ruta.rutas_data.length)/2)].lng], 15);
-        return null;
-      }
+    const MyComponent = ({changeZoom})=>{
+        const map = useMapEvents({
+            click:()=>{
+                map.locate()
+            },
+            locationfound:(location)=>{
+                console.log('location found:', location)
+            },
+
+            zoom: e=> changeZoom(e.target._zoom)
+        })
+        return null
+    }
+    //cambiar para que apunte directamkene a la ruta 
+    const changeZoom = zm =>{
+        console.log('cambio de zoom a:', zoom)
+        setZoom(zm)
+    }
 
     return ruta ? (
         <div>
@@ -88,10 +104,10 @@ const Map = () =>{
                 <Col><h1>Distancia: {(Math.round((ruta.distancia/1000)*100))/100} km</h1></Col>
                 <Col><h1>Tiempo estimado: {Math.round((ruta.tiempo/1000)/60)} min</h1></Col>
             </Row>
-            <MapContainer center={[43.25, -1.25]} zoom={5} style={{ height: 'calc(105vh - 210px)' }}>
+            <MapContainer center={position} zoom={zoom} style={{ height: 'calc(105vh - 210px)' }}>
                 {divVisible ? <DivPreguntas/> : null}
+                <MyComponent changeZoom={changeZoom}/>
                 <TileLayer attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"/>
-                {ruta ? <ChangeView/> : null}
                 {ruta.rutas_data && ruta.rutas_data.map((ll,a)=>{
                     if(a===0){
                         return null

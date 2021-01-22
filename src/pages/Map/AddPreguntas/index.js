@@ -27,14 +27,14 @@ const AnadirPregunta = () =>{
                         'numPregunta': parseInt(a+1),
                         'pregunta': data[`preg${a}`],
                         'opcion': data[`radio-group${a}`],
-                        'rutasId': ruta.id,
+                        'rutasId': ruta._id,
                         'respuestas':[{'numRespuesta':1, 'respuesta': data[`opcion${a}1`]},{'numRespuesta':2, 'respuesta': data[`opcion${a}2`]},{'numRespuesta':3, 'respuesta': data[`opcion${a}3`]}]
                     }),
             }).then(res => res.json())
             .catch(error => console.error('Error:', error))
             .then(response => console.log('Success:', response));
         })
-        window.location.href=`/routes/${ruta.id}`
+        window.location.href=`/routes/${ruta._id}`
         
     }
 
