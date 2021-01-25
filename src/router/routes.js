@@ -32,7 +32,7 @@ export const routes = [
         body: ()=><RouteCreator />
     },{
         key: "3",
-        path: "/routes_create/add_pregunta",
+        path: "/routes_create/add_pregunta/:id",
         exact: true,
         text: "Mapa_Pregunta",
         body: ()=><AnadirPregunta/>

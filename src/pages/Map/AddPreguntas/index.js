@@ -5,11 +5,12 @@ import {Button, Form, Input, Radio} from 'antd';
 const AnadirPregunta = () =>{
     const [ruta, setRuta] = useState(null)
     useEffect(()=>{
-        fetch('http://localhost:8080/routes/ultima_ruta')
+        fetch(`http://localhost:8080/routes/${window.location.href.substring(window.location.href.lastIndexOf('/') + 1)}`)
         .then(res => res.json())
         .then(
             (result)=>{
                 setRuta(result)
+                console.log(result)
             }
         )
     },[])

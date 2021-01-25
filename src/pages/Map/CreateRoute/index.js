@@ -36,8 +36,10 @@ const RouteCreator = () => {
   const [distancia, setDistancia] = useState(0);
   const [tiempo, setTiempo] = useState(0);
 
+
   //aux
   const [clickAux, setClickAux] = useState(null)
+  const [cont, setCont] = useState(0)
 
   let descMarker = new L.ExtraMarkers.Icon({
     markerColor: 'blue', prefix: 'fa',
@@ -53,13 +55,14 @@ const RouteCreator = () => {
         }else{
           routingService.getRoute(rutaClick.lat, rutaClick.lng, e.latlng.lat, e.latlng.lng)
           .then(response => {
-            if (response) 
-            console.log(response)
-            setTrack(track => [...track,...response.latLon])
-            setClickAux({lat: rutaClick.lat, lng: rutaClick.lng})
-            setRutaClick({lat: e.latlng.lat, lng: e.latlng.lng})
-            setDistancia(distancia+response.distance)
-            setTiempo(tiempo+response.time)
+            if (!response.error){
+              console.log(response)
+              setTrack(track => [...track,...response.latLon])
+              setClickAux({lat: rutaClick.lat, lng: rutaClick.lng})
+              setRutaClick({lat: e.latlng.lat, lng: e.latlng.lng})
+              setDistancia(distancia+response.distance)
+              setTiempo(tiempo+response.time)
+            } 
           });
         }
       }
@@ -69,14 +72,21 @@ const RouteCreator = () => {
 
   //Funcion para añadir los puntos de las preguntas
   const CrearPuntos = () =>{
-  // eslint-disable-next-line
+    // eslint-disable-next-line
     const map = useMapEvents({
-      click:(e)=>{//hay que poner limite de 10 puntos
-        setMarkers([...markers, e.latlng])
+      click:(e)=>{//hay que poner limite de 8 puntos
+        if(cont<7){
+          setMarkers([...markers, e.latlng])
+          console.log(markers[0])
+          setCont(cont+1)
+          console.log(cont)
+        }
+        
       }
     })
     return null
   }
+
   //Funcion para deshacer
   const deshacerRuta = () => {
     console.log(clickAux)
@@ -86,7 +96,6 @@ const RouteCreator = () => {
     //el problema es que, al guardarse en el array se reducen los decimales
     //students.findIndex(std=> std.id === 200);
     console.log(track)
-
   }
 
   const ChangeMode = ()=>{
@@ -114,8 +123,8 @@ const RouteCreator = () => {
         })
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
-    window.location.href='/routes_create/add_pregunta'
+    .then(response => window.location.href=`/routes_create/add_pregunta/${response._id}`);
+    //window.location.href='/routes_create/add_pregunta'
   }
  
   

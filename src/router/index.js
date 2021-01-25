@@ -9,8 +9,6 @@ import { Layout, Menu, Button, } from "antd";
 // Styles
 import { Logo, Wrapper,  } from "./styles";
 
-
-
 //Rutas programadas
 import { routes } from "./routes";
 
@@ -20,8 +18,6 @@ import { AuthContext } from "../App";
 
 // Layout
 const {  Content, Footer, Sider } = Layout;
-
-
 
 const Routes = () => {
   //Variables de estado
@@ -63,22 +59,22 @@ const Routes = () => {
         >
           <Logo />
           <Menu style={{ height: "calc(100vh - 64px)" }} mode="inline"  theme="dark" defaultOpenKeys={[localStorage.getItem("sub-item")]} defaultSelectedKeys={[localStorage.getItem("item")]}>
-              <Menu.Item key="rutas" icon={<mapaSVG/>}>
+              <Menu.Item key="rutas">
                 <Link to="/routes">
                   Gestion de Rutas
                 </Link>
               </Menu.Item>
-              <Menu.Item key="preguntas" icon={<mapaSVG/>}>
+              <Menu.Item key="preguntas">
                 <Link to="/preguntas">
                   Gestion de Preguntas
                 </Link>
               </Menu.Item>
-              <Menu.Item key="ranking" icon={<mapaSVG/>}>
+              <Menu.Item key="ranking">
                 <Link to="/ranking">
                   Gestion de Ranking
                 </Link>
               </Menu.Item>
-              <Menu.Item key="usuarios" icon={<mapaSVG/>}>
+              <Menu.Item key="usuarios">
                 <Link to="/usuarios">
                   Gestion de Usuarios
                 </Link>

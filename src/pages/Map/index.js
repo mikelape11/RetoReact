@@ -70,7 +70,7 @@ const RouteTable = () =>{
        setSearchText('');
     };
     const columns = [
-        {title:'ID',dataIndex:'_id',key:'_id'},{title: 'Nombre Ruta',dataIndex:'nombre',key:'nombre', ...getColumnSearchProps('name')},{ title: 'Distancia(km)',  dataIndex:'distancia',key:'distancia', render: (_, record)=><p>{(Math.round((record.distancia/1000)*100))/100}</p>},{title:'Tiempo est.(min)', dataIndex: 'tiempo', key:'tiempo', render: (_, record)=><p>{Math.round((record.tiempo/1000)/60)}</p>},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>readRoute(record._id)} icon={<EyeOutlined />}></Button><Button onClick={()=>retrieveRoute(record.id)} icon={<EditOutlined />}/><Button onClick={()=>deleteRoute(record._id)} icon={<DeleteOutlined />}/><Button onClick={()=>goChat(record.nombre)} icon={<MessageOutlined />}></Button></b>} 
+        {title:'ID',dataIndex:'_id',key:'_id'},{title: 'Nombre Ruta',dataIndex:'nombre',key:'nombre', ...getColumnSearchProps('name')},{ title: 'Distancia(km)',  dataIndex:'distancia',key:'distancia', render: (_, record)=><p>{(Math.round((record.distancia/1000)*100))/100}</p>},{title:'Tiempo est.(min)', dataIndex: 'tiempo', key:'tiempo', render: (_, record)=><p>{Math.round((record.tiempo/1000)/60)}</p>},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>readRoute(record._id)} icon={<EyeOutlined />}></Button><Button onClick={()=>retrieveRoute(record.id)} icon={<EditOutlined />}/><Button onClick={()=>deleteRoute(record._id)} icon={<DeleteOutlined />}/><Button onClick={()=>goChat(record._id)} icon={<MessageOutlined />}></Button></b>} 
     ]
     const readRoute = id => {
       window.location.href=`routes/${id}`
