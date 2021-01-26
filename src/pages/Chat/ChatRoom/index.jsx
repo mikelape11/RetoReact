@@ -23,12 +23,14 @@ const ChatRoom = () => {
       <div className="messages-container">
         <ol className="messages-list">
           {messages.map((message, i) => (
+              
             <li
               key={i}
               className={`message-item ${
                 message.ownedByCurrentUser ? "my-message" : "received-message"
               }`}
             >
+              {console.log(message)}
               {message.body}
             </li>
           ))}
@@ -37,11 +39,11 @@ const ChatRoom = () => {
       <textarea
         value={newMessage}
         onChange={handleNewMessageChange}
-        placeholder="Write message..."
+        placeholder="Escribir mensaje..."
         className="new-message-input-field"
       />
       <button onClick={handleSendMessage} className="send-message-button">
-        Send
+        Enviar mensaje
       </button>
     </div>
   );

@@ -11,6 +11,7 @@ import 'leaflet-extra-markers/dist/css/leaflet.extra-markers.min.css';
 import { Row, Col, Breadcrumb, Typography } from 'antd';
 
 const {Title, Text} = Typography;
+const icon = '/img/user.png'
 
 
 const Map = () =>{
@@ -18,9 +19,21 @@ const Map = () =>{
     const [pregunta, setPregunta] = useState(null)
     const [divVisible, setDivVisible] = useState(false);
     const [divData, setDivData] = useState(null);
+    const [users, setUsers] = useState(null)
 
-    const [position/*, setPosition */] = useState([51.505, -0.09])
+    const [position/*, setPosition */] = useState([43.345257,-1.79636])
     const [zoom, setZoom] = useState(13)
+
+    const iconPerson = new L.Icon({
+        iconUrl: icon,
+        iconRetinaUrl: icon,
+        iconAnchor: null,
+        popupAnchor: null,
+        shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+        shadowSize: null,
+        shadowAnchor: null,
+        iconSize: new L.Point(60, 75),
+    });
 
 
     useEffect(()=>{
@@ -38,7 +51,26 @@ const Map = () =>{
                 setPregunta(result)
             }
         )
+        fetch(`http://localhost:8080/ubicacion/todos`)
+        .then(res => res.json())
+        .then(
+            (result)=>{
+                setUsers(result)
+            }
+        )
     },[])
+    
+    useEffect(()=>{
+        const ac = new AbortController();
+        fetch(`http://localhost:8080/ubicacion/todos`)
+        .then(res => res.json())
+        .then(
+            (result)=>{
+                setUsers(result)
+            }
+        )
+        return () => ac.abort(); // Abort both fetches on unmount
+    })
 
     const POSITION_CLASSES = {
         bottomleft: 'leaflet-bottom leaflet-left',
@@ -62,7 +94,6 @@ const Map = () =>{
                         }
                     })}
                 </div>
-
             </div>
         )
     }
@@ -85,6 +116,7 @@ const Map = () =>{
         console.log('cambio de zoom a:', zoom)
         setZoom(zm)
     }
+   
 
     return ruta ? (
         <div>
@@ -116,7 +148,7 @@ const Map = () =>{
                 })}
                 {ruta.rutas_loc && ruta.rutas_loc.map((mrkr,a)=>{
                     let descMarker = new L.ExtraMarkers.Icon({
-                         markerColor: 'blue', icon: 'fa-number', number: `${a+1}`
+                         markerColor: 'orange', icon: 'fa-number', number: `${a+1}`
                     });
                     return <Marker key={'marker'+a} icon={descMarker} position={[mrkr.lat, mrkr.lng]} eventHandlers={{
                         mouseover:()=>{
@@ -129,6 +161,12 @@ const Map = () =>{
                         }
                     }}></Marker>
                 })}
+                {
+                    users && users.map((user,a)=>{
+                        console.log(user)
+                        return <Marker icon={iconPerson} position={[user.lat, user.lng]}></Marker>
+                    })
+                }
             </MapContainer>
         </div>
     ) : <p>Cargando...</p>

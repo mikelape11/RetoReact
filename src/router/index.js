@@ -58,7 +58,7 @@ const Routes = () => {
           }}
         >
           <Logo />
-          <Menu style={{ height: "calc(100vh - 64px)" }} mode="inline"  theme="dark" defaultOpenKeys={[localStorage.getItem("sub-item")]} defaultSelectedKeys={[localStorage.getItem("item")]}>
+          <Menu style={{ height: "calc(100vh - 64px)" }} mode="inline" theme="dark" defaultOpenKeys={[localStorage.getItem("sub-item")]} defaultSelectedKeys={[localStorage.getItem("item")]}>
               <Menu.Item key="rutas">
                 <Link to="/routes">
                   Gestion de Rutas
@@ -94,7 +94,7 @@ const Routes = () => {
               </Switch>
             </Wrapper>
           </Content>
-        <Footer style={{ textAlign: "center" }}>RouteQuest©2021 Created by your mother</Footer>
+        <Footer style={{ textAlign: "center" }}>RouteQuest©2021 Created by Mikel Apezetxea, Mélanie Miguel & Javi Sánchez</Footer>
         </Layout>
       </Layout>
     </Router>

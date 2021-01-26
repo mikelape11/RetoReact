@@ -12,7 +12,6 @@ import {Button, Form, Input, Breadcrumb, Row, Col, Typography} from 'antd';
 
 const {Title, Text} = Typography;
 
-
 //estado por defecto
 const INITIAL_STATE = {
     lat: 43.2612,
@@ -36,7 +35,6 @@ const RouteCreator = () => {
   const [distancia, setDistancia] = useState(0);
   const [tiempo, setTiempo] = useState(0);
 
-
   //aux
   const [clickAux, setClickAux] = useState(null)
   const [cont, setCont] = useState(0)
@@ -56,7 +54,6 @@ const RouteCreator = () => {
           routingService.getRoute(rutaClick.lat, rutaClick.lng, e.latlng.lat, e.latlng.lng)
           .then(response => {
             if (!response.error){
-              console.log(response)
               setTrack(track => [...track,...response.latLon])
               setClickAux({lat: rutaClick.lat, lng: rutaClick.lng})
               setRutaClick({lat: e.latlng.lat, lng: e.latlng.lng})
@@ -74,28 +71,33 @@ const RouteCreator = () => {
   const CrearPuntos = () =>{
     // eslint-disable-next-line
     const map = useMapEvents({
-      click:(e)=>{//hay que poner limite de 8 puntos
-        if(cont<7){
+      click:(e)=>{
+        if(cont<7){//limite de 7 puntos
           setMarkers([...markers, e.latlng])
-          console.log(markers[0])
           setCont(cont+1)
-          console.log(cont)
         }
-        
       }
     })
     return null
   }
+  //Borrar Punto
+  const BorrarPuntos = () =>{
+    setMarkers(markers.filter(item => item !== markers[markers.length-1]))
+    if(cont>0){
+      setCont(cont-1)
+    }
+    return null;
+  }
 
   //Funcion para deshacer
   const deshacerRuta = () => {
-    console.log(clickAux)
-    setTrack(track.filter(item => console.log(item)))
-    //setJoinList(joinList.filter((e)=>(e !== name)))
-    //un intento de deshacer, de momento no hace nada
+    setTrack(track.filter(item => item===clickAux))
+    setClickAux(null)
+    setRutaClick(null)
+    setDistancia(0)
+    setTiempo(0)
+    //un intento de deshacer, pero borra toda la ruta
     //el problema es que, al guardarse en el array se reducen los decimales
-    //students.findIndex(std=> std.id === 200);
-    console.log(track)
   }
 
   const ChangeMode = ()=>{
@@ -124,7 +126,6 @@ const RouteCreator = () => {
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => window.location.href=`/routes_create/add_pregunta/${response._id}`);
-    //window.location.href='/routes_create/add_pregunta'
   }
  
   
@@ -140,16 +141,25 @@ const RouteCreator = () => {
           </Col>
         </Row>
         <Form onFinish={GuardarRuta}>
-          <Form.Item label="Nombre" name="nombre" rules={[{ required: true, message: 'El nombre es obligatorio!!' }]}>
-              <Input/>
-          </Form.Item>
-          <Form.Item label="Ciudad" name="ciudad" rules={[{ required: true, message: 'La ciudad es obligatoria!!' }]}>
-              <Input/>
-          </Form.Item>
-          <Button htmlType="submit">Guardar Ruta</Button>
+          <Row justify="center">
+            <Col span={7}>
+              <Form.Item label="Nombre" name="nombre" rules={[{ required: true, message: 'El nombre es obligatorio!!' }]}>
+                <Input/>
+              </Form.Item>
+            </Col>
+            <Col span={7}>
+              <Form.Item label="Ciudad" name="ciudad" rules={[{ required: true, message: 'La ciudad es obligatoria!!' }]}>
+                  <Input/>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row justify="center"><Col><Button htmlType="submit">Guardar Ruta</Button></Col></Row>
         </Form>
-        <Button onClick={ChangeMode}>Cambiar Modo</Button>
-        <Button onClick={deshacerRuta}>Deshacer</Button>
+        <Row justify="space-around">
+          <Col><Button onClick={ChangeMode}>Cambiar Modo</Button></Col>
+          <Col><Button onClick={deshacerRuta}>Borrar ruta</Button></Col>
+          <Col><Button onClick={BorrarPuntos}>Borrar última localización</Button></Col>
+        </Row> 
         <h1>{(Math.round((distancia/1000)*100))/100} km</h1>
         <h1>{Math.round((tiempo/1000)/60)} min.</h1>
         <MapContainer 
