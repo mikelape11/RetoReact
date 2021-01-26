@@ -11,6 +11,7 @@ import 'leaflet-extra-markers/dist/css/leaflet.extra-markers.min.css';
 import { Row, Col, Breadcrumb, Typography } from 'antd';
 
 const {Title, Text} = Typography;
+const icon = '/img/user.png'
 
 
 const Map = () =>{
@@ -85,6 +86,19 @@ const Map = () =>{
         console.log('cambio de zoom a:', zoom)
         setZoom(zm)
     }
+    const PruebaMarker = () =>{
+        const iconPerson = new L.Icon({
+            iconUrl: icon,
+            iconRetinaUrl: icon,
+            iconAnchor: null,
+            popupAnchor: null,
+            shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+            shadowSize: null,
+            shadowAnchor: null,
+            iconSize: new L.Point(60, 75),
+        });
+        return <Marker icon={iconPerson} position={[51.505, -0.09]}></Marker>
+    }
 
     return ruta ? (
         <div>
@@ -107,6 +121,7 @@ const Map = () =>{
             <MapContainer center={position} zoom={zoom} style={{ height: 'calc(105vh - 210px)' }}>
                 {divVisible ? <DivPreguntas/> : null}
                 <MyComponent changeZoom={changeZoom}/>
+                <PruebaMarker/>
                 <TileLayer attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"/>
                 {ruta.rutas_data && ruta.rutas_data.map((ll,a)=>{
                     if(a===0){
