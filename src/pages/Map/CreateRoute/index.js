@@ -40,7 +40,7 @@ const RouteCreator = () => {
   const [cont, setCont] = useState(0)
 
   let descMarker = new L.ExtraMarkers.Icon({
-    markerColor: 'blue', prefix: 'fa',
+    markerColor: 'orange', prefix: 'fa',
   });
   
   //Creador de ruta
@@ -86,6 +86,7 @@ const RouteCreator = () => {
     if(cont>0){
       setCont(cont-1)
     }
+    console.log(markers)
     return null;
   }
 
@@ -108,24 +109,26 @@ const RouteCreator = () => {
     }
   }
   const GuardarRuta = values =>{
-    fetch(`http://localhost:8080/routes/save`,{
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body:
-        JSON.stringify({
-          nombre: values.nombre,
-          ciudad: values.ciudad,
-          distancia: distancia,
-          tiempo: tiempo,
-          rutas_data: track,
-          rutas_loc: markers,
-        })
-    }).then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => window.location.href=`/routes_create/add_pregunta/${response._id}`);
+    if(markers.length>0 && track.length>0){
+      fetch(`http://localhost:8080/routes/save`,{
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body:
+          JSON.stringify({
+            nombre: values.nombre,
+            ciudad: values.ciudad,
+            distancia: distancia,
+            tiempo: tiempo,
+            rutas_data: track,
+            rutas_loc: markers,
+          })
+      }).then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => window.location.href=`/routes_create/add_pregunta/${response._id}`);
+    }
   }
  
   
@@ -153,13 +156,14 @@ const RouteCreator = () => {
               </Form.Item>
             </Col>
           </Row>
+          <Row justify="space-around">
+            <Col><Button onClick={ChangeMode}>Cambiar Modo</Button></Col>
+            <Col><Button onClick={deshacerRuta}>Borrar ruta</Button></Col>
+            <Col><Button onClick={BorrarPuntos}>Borrar última localización</Button></Col>
+          </Row> 
           <Row justify="center"><Col><Button htmlType="submit">Guardar Ruta</Button></Col></Row>
         </Form>
-        <Row justify="space-around">
-          <Col><Button onClick={ChangeMode}>Cambiar Modo</Button></Col>
-          <Col><Button onClick={deshacerRuta}>Borrar ruta</Button></Col>
-          <Col><Button onClick={BorrarPuntos}>Borrar última localización</Button></Col>
-        </Row> 
+        
         <h1>{(Math.round((distancia/1000)*100))/100} km</h1>
         <h1>{Math.round((tiempo/1000)/60)} min.</h1>
         <MapContainer 
@@ -178,7 +182,7 @@ const RouteCreator = () => {
             <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"/>
-        {track ? <Polyline positions={track}></Polyline>: null}
+        {track ? <Polyline pathOptions={{color: 'orange'}} positions={track}></Polyline>: null}
         </MapContainer>
     </div>
   )

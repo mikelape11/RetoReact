@@ -144,7 +144,7 @@ const Map = () =>{
                     if(a===0){
                         return null
                     }
-                    return <Polyline  key={'latlng'+a} weight={4} positions={[[ruta.rutas_data[a-1].lat, ruta.rutas_data[a-1].lng],[ll.lat, ll.lng]]}></Polyline>
+                    return <Polyline  key={'latlng'+a} weight={4} pathOptions={{color: 'orange'}} positions={[[ruta.rutas_data[a-1].lat, ruta.rutas_data[a-1].lng],[ll.lat, ll.lng]]}></Polyline>
                 })}
                 {ruta.rutas_loc && ruta.rutas_loc.map((mrkr,a)=>{
                     let descMarker = new L.ExtraMarkers.Icon({
