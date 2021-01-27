@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 
 //Leaflet
-import { MapContainer, TileLayer, Polyline, Marker, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Polyline, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-extra-markers/dist/js/leaflet.extra-markers.js.map';
@@ -21,8 +21,10 @@ const Map = () =>{
     const [divData, setDivData] = useState(null);
     const [users, setUsers] = useState(null)
 
-    const [position/*, setPosition */] = useState([43.345257,-1.79636])
-    const [zoom, setZoom] = useState(13)
+    const [position] = useState([43.345257,-1.79636])
+    const [zoom] = useState(13)
+
+    const [polylineData, setPolylineData] = useState(null);
 
     const iconPerson = new L.Icon({
         iconUrl: icon,
@@ -42,6 +44,9 @@ const Map = () =>{
         .then(
             (result)=>{
                 setRuta(result)
+                let poly = result.rutas_data.map(d=> [d.lat, d.lng]);
+                console.log(poly);
+                setPolylineData(poly);
             }
         )
         fetch(`http://localhost:8080/preguntas/${window.location.href.substring(window.location.href.lastIndexOf('/') + 1)}`)
@@ -71,6 +76,11 @@ const Map = () =>{
         )
         return () => ac.abort(); // Abort both fetches on unmount
     })
+    useEffect(()=>{
+        if(polylineData){
+            setPolylineData(null)
+        }
+    },[polylineData])
 
     const POSITION_CLASSES = {
         bottomleft: 'leaflet-bottom leaflet-left',
@@ -97,27 +107,12 @@ const Map = () =>{
             </div>
         )
     }
-
-    const MyComponent = ({changeZoom})=>{
-        const map = useMapEvents({
-            click:()=>{
-                map.locate()
-            },
-            locationfound:(location)=>{
-                console.log('location found:', location)
-            },
-
-            zoom: e=> changeZoom(e.target._zoom)
-        })
+    const MyComponentSetView = ({polyline}) =>{
+        const map = useMap();
+        console.log("polyline ha cambiado", polyline);
+        if(polyline) map.fitBounds(polyline);
         return null
     }
-    //cambiar para que apunte directamkene a la ruta 
-    const changeZoom = zm =>{
-        console.log('cambio de zoom a:', zoom)
-        setZoom(zm)
-    }
-   
-
     return ruta ? (
         <div>
             <Row justify={'space-between'}>
@@ -138,7 +133,7 @@ const Map = () =>{
             </Row>
             <MapContainer center={position} zoom={zoom} style={{ height: 'calc(105vh - 210px)' }}>
                 {divVisible ? <DivPreguntas/> : null}
-                <MyComponent changeZoom={changeZoom}/>
+                <MyComponentSetView polyline={polylineData}/>
                 <TileLayer attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"/>
                 {ruta.rutas_data && ruta.rutas_data.map((ll,a)=>{
                     if(a===0){

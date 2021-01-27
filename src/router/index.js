@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 //Estructura
 import { Layout, Menu, Button, } from "antd";
 
+import './index.css'
 // Styles
 import { Logo, Wrapper,  } from "./styles";
 
@@ -58,8 +59,8 @@ const Routes = () => {
           }}
         >
           <Logo />
-          <Menu style={{ height: "calc(100vh - 64px)" }} mode="inline" theme="dark" defaultOpenKeys={[localStorage.getItem("sub-item")]} defaultSelectedKeys={[localStorage.getItem("item")]}>
-              <Menu.Item key="rutas">
+          <Menu style={{ height: "calc(100vh - 64px)" , backgroundColor: "orange"}} mode="inline" theme="dark" defaultOpenKeys={[localStorage.getItem("sub-item")]} defaultSelectedKeys={[localStorage.getItem("item")]}>
+              <Menu.Item key="rutas" style={{color:"black"}} className="e">
                 <Link to="/routes">
                   Gestion de Rutas
                 </Link>
