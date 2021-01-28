@@ -127,7 +127,7 @@ const RouteCreator = () => {
           })
       }).then(res => res.json())
       .catch(error => console.error('Error:', error))
-      .then(response => window.location.href=`/routes_create/add_pregunta/${response._id}`);
+      .then(response =>  window.location.href=`/routes_create/add_pregunta/${response._id}`);
   }
  
   

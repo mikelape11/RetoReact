@@ -83,12 +83,12 @@ const UpdateRouteData = () =>{
     return ruta ? (
         <div>
             <Row justify={'space-between'}>
-                <Col span={12}><Title>Gestión de rutas <Text type="secondary">Consulta</Text></Title></Col>
+                <Col span={12}><Title>Gestión de rutas <Text type="secondary">Modificación</Text></Title></Col>
                 <Col span={12}>
                     <Breadcrumb separator=">" >
                         <Breadcrumb.Item>Gestión de Rutas</Breadcrumb.Item>
                         <Breadcrumb.Item>Tabla de datos</Breadcrumb.Item>
-                        <Breadcrumb.Item>Consulta de ruta</Breadcrumb.Item>
+                        <Breadcrumb.Item>Modificación de ruta</Breadcrumb.Item>
                     </Breadcrumb>
                 </Col>
             </Row>
