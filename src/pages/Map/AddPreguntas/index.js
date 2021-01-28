@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import {Button, Form, Input, Radio} from 'antd';
+import {Button, Form, Input, Radio, Row, Col} from 'antd';
 
 const AnadirPregunta = () =>{
     const [ruta, setRuta] = useState(null)
@@ -43,13 +43,27 @@ const AnadirPregunta = () =>{
         <div>
             <Form onFinish={guardarPreguntas}>
                 {ruta && ruta.rutas_loc.map((loc,a)=>{
-                    return <div>
+                    return <div key={"pregunta"+a} className="pregunta">
+                        <Row justify="center">
+                            <Col span={8}>
                                 <Form.Item key={"preg"+a} name={"preg"+a} label={"Pregunta nº"+a}>
                                     <Input></Input>
                                 </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row justify="space-between">
+                            <Col>
                                 <Form.Item key={"opcion"+a+"1"} name={"opcion"+a+"1"} label={"Respuesta 1"}><Input></Input></Form.Item>
+                            </Col>
+                            <Col>
                                 <Form.Item key={"opcion"+a+"2"} name={"opcion"+a+"2"} label={"Respuesta 2"}><Input></Input></Form.Item>
+                            </Col>
+                            <Col>
                                 <Form.Item key={"opcion"+a+"3"} name={"opcion"+a+"3"} label={"Respuesta 3"}><Input></Input></Form.Item>
+                            </Col>
+                        </Row>
+                        <Row justify="center">
+                            <Col>
                                 <Form.Item name={"radio-group"+a} label="Respuesta correcta">
                                     <Radio.Group>
                                         <Radio value={1}>Respuesta 1</Radio>
@@ -57,7 +71,9 @@ const AnadirPregunta = () =>{
                                         <Radio value={3}>Respuesta 3</Radio>
                                     </Radio.Group>
                                 </Form.Item>
-                            </div>
+                            </Col>
+                        </Row>          
+                    </div>
                 })}
                 <Button htmlType="submit">Guardar preguntas</Button>
             </Form>

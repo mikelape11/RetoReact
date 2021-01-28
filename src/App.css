@@ -108,3 +108,11 @@ background-color: #fff;
 margin: 20px;
 border: 1px solid;
 }
+.pregunta{
+  background-color: #ebebeb;
+  margin: 1%;
+  padding: 1%;
+}
+.ant-menu.ant-menu-dark, .ant-menu-item-selected.e {
+  background-color: black;
+}

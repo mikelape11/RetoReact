@@ -3,6 +3,7 @@ import React from 'react';
 import RouteTable from '../pages/Map'
 import Map from '../pages/Map/ReadMap'
 import RouteCreator from '../pages/Map/CreateRoute'
+import UpdateRouteData from '../pages/Map/UpdateRouteData'
 import AnadirPregunta from '../pages/Map/AddPreguntas'
 import Preguntas from '../pages/Preguntas'
 import Ranking from '../pages/Ranking'
@@ -30,8 +31,16 @@ export const routes = [
         exact: true,
         text: "Mapa",
         body: ()=><RouteCreator />
-    },{
-        key: "3",
+    },
+    {
+        key: "35",
+        path: "/routes_update/:id",
+        exact: true,
+        text: "Mapa",
+        body: ()=><UpdateRouteData />
+    },
+    {
+        key: "4",
         path: "/routes_create/add_pregunta/:id",
         exact: true,
         text: "Mapa_Pregunta",

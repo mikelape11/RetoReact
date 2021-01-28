@@ -109,7 +109,7 @@ const RouteCreator = () => {
     }
   }
   const GuardarRuta = values =>{
-    if(markers.length>0 && track.length>0){
+      console.log(values)
       fetch(`http://localhost:8080/routes/save`,{
         method: 'POST',
         headers: {
@@ -128,7 +128,6 @@ const RouteCreator = () => {
       }).then(res => res.json())
       .catch(error => console.error('Error:', error))
       .then(response => window.location.href=`/routes_create/add_pregunta/${response._id}`);
-    }
   }
  
   

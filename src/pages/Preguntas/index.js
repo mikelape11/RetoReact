@@ -114,22 +114,31 @@ const Preguntas = () =>{
             {preg ? 
                 <Form onFinish={ActPreguntas}>
                     {preg && preg.map((p,a)=>{
-                        console.log(p)
-                        return <div key={"pregunta"+a}>
-                            <Form.Item key={"preg"+a} name={"preg"+a} label={"Pregunta nº"+p.numPregunta} required initialValue={p.pregunta}>
-                                <Input></Input>
-                            </Form.Item>
-                            <Form.Item required key={"opcion"+a+p.respuestas[0].numRespuesta} name={"opcion"+a+p.respuestas[0].numRespuesta} label={"Respuesta "+p.respuestas[0].numRespuesta} initialValue={p.respuestas[0].respuesta}><Input></Input></Form.Item>
-                            <Form.Item required key={"opcion"+a+p.respuestas[1].numRespuesta} name={"opcion"+a+p.respuestas[1].numRespuesta} label={"Respuesta "+p.respuestas[1].numRespuesta} initialValue={p.respuestas[1].respuesta}><Input></Input></Form.Item>
-                            <Form.Item required key={"opcion"+a+p.respuestas[2].numRespuesta} name={"opcion"+a+p.respuestas[2].numRespuesta} label={"Respuesta "+p.respuestas[2].numRespuesta} initialValue={p.respuestas[2].respuesta}><Input></Input></Form.Item>
-                            <Form.Item name={"radio-group"+a} label="Respuesta correcta" required initialValue={p.opcion}>
-                                {/*al mandar los datos pone undefined aunque esté marcado desde el inicio*/}
-                                <Radio.Group>
-                                    <Radio value={1}>Respuesta 1</Radio>
-                                    <Radio value={2}>Respuesta 2</Radio>
-                                    <Radio value={3}>Respuesta 3</Radio>
-                                </Radio.Group>
-                            </Form.Item>
+                        return <div key={"pregunta"+a} className="pregunta">
+                            <Row justify="center">
+                                <Col span={8}>
+                                    <Form.Item key={"preg"+a} name={"preg"+a} label={"Pregunta nº"+p.numPregunta} required initialValue={p.pregunta}>
+                                        <Input></Input>
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+                            <Row justify="space-between">
+                                <Col><Form.Item required key={"opcion"+a+p.respuestas[0].numRespuesta} name={"opcion"+a+p.respuestas[0].numRespuesta} label={"Respuesta "+p.respuestas[0].numRespuesta} initialValue={p.respuestas[0].respuesta}><Input></Input></Form.Item></Col>
+                                <Col><Form.Item required key={"opcion"+a+p.respuestas[1].numRespuesta} name={"opcion"+a+p.respuestas[1].numRespuesta} label={"Respuesta "+p.respuestas[1].numRespuesta} initialValue={p.respuestas[1].respuesta}><Input></Input></Form.Item></Col>
+                                <Col><Form.Item required key={"opcion"+a+p.respuestas[2].numRespuesta} name={"opcion"+a+p.respuestas[2].numRespuesta} label={"Respuesta "+p.respuestas[2].numRespuesta} initialValue={p.respuestas[2].respuesta}><Input></Input></Form.Item></Col>
+                            </Row>
+                            <Row justify="center">
+                                <Col>
+                                    <Form.Item name={"radio-group"+a} label="Respuesta correcta" required initialValue={p.opcion}>
+                                        <Radio.Group>
+                                            <Radio value={1}>Respuesta 1</Radio>
+                                            <Radio value={2}>Respuesta 2</Radio>
+                                            <Radio value={3}>Respuesta 3</Radio>
+                                        </Radio.Group>
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+                            
                         </div>
                     })}
                     <Button htmlType="submit">Actualizar preguntas</Button>

@@ -73,7 +73,7 @@ const Ranking = () =>{
        setSearchText('');
     };
     const columns = [
-        {title:'ID',dataIndex:'_id',key:'_id'},{title: 'Usuario',dataIndex:'nombre',key:'nombre', ...getColumnSearchProps('name')},{ title: 'Puntos',  dataIndex:'puntos',key:'puntos'},{title:'Aciertos', dataIndex: 'aciertos', key:'aciertos'},{title:'Fallos', dataIndex: 'fallos', key:'fallos'},{title:'Tiempo', dataIndex: 'tiempo', key:'tiempo'},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b>o</b>} 
+        {title:'ID',dataIndex:'_id',key:'_id'},{title: 'Usuario',dataIndex:'nombre',key:'nombre', ...getColumnSearchProps('name')},{ title: 'Puntos',  dataIndex:'puntos',key:'puntos'},{title:'Aciertos', dataIndex: 'aciertos', key:'aciertos'},{title:'Fallos', dataIndex: 'fallos', key:'fallos'},{title:'Tiempo', dataIndex: 'tiempo', key:'tiempo'}
     ]
     useEffect( ()=>{
         if(!ciudades){

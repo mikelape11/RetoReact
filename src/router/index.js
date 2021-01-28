@@ -59,8 +59,8 @@ const Routes = () => {
           }}
         >
           <Logo />
-          <Menu style={{ height: "calc(100vh - 64px)" , backgroundColor: "orange"}} mode="inline" theme="dark" defaultOpenKeys={[localStorage.getItem("sub-item")]} defaultSelectedKeys={[localStorage.getItem("item")]}>
-              <Menu.Item key="rutas" style={{color:"black"}} className="e">
+          <Menu style={{ height: "calc(100vh - 64px)"}} mode="inline" theme="dark" defaultOpenKeys={[localStorage.getItem("sub-item")]} defaultSelectedKeys={[localStorage.getItem("item")]}>
+              <Menu.Item key="rutas" className="e">
                 <Link to="/routes">
                   Gestion de Rutas
                 </Link>
