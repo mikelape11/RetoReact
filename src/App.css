@@ -39,10 +39,10 @@
   position: absolute;
   top: 7.5vh;
   left: 35.5vw;
-  background-color: rgba(28, 28, 28,0.95);
+  background-color: rgba(235, 235, 235, 0.253);
   height: 70vh;
   width: 27vw;
-  border: 2px solid orange;
+  border: 2px solid #337ab7;
   border-radius: 5px;
 }
 
@@ -70,7 +70,7 @@
 .button {
   position: absolute;
   width: 75%;
-  background-color: orange;
+  background-color: #337ab7;
   color: #fff;
   text-transform: uppercase;
   margin-top: 1vh;

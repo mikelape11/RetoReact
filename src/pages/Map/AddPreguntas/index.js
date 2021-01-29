@@ -46,7 +46,7 @@ const AnadirPregunta = () =>{
                     return <div key={"pregunta"+a} className="pregunta">
                         <Row justify="center">
                             <Col span={8}>
-                                <Form.Item key={"preg"+a} name={"preg"+a} label={"Pregunta nº"+a}>
+                                <Form.Item key={"preg"+a} name={"preg"+a} label={"Pregunta nº"+(a+1)}>
                                     <Input></Input>
                                 </Form.Item>
                             </Col>

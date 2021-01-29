@@ -80,6 +80,25 @@ const UpdateRouteData = () =>{
         if(polyline) map.fitBounds(polyline);
         return null
     }
+    const updateData = (data) =>{
+        fetch(`http://localhost:8080/routes/save`,{
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body:
+          JSON.stringify({
+            nombre: data.nombre,
+            ciudad: data.ciudad,
+        
+          })
+      }).then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response =>  window.location.href=`/routes/${response._id}`);
+
+    }
+
     return ruta ? (
         <div>
             <Row justify={'space-between'}>
@@ -92,7 +111,7 @@ const UpdateRouteData = () =>{
                     </Breadcrumb>
                 </Col>
             </Row>
-            <Form fields={[{name:['nombre'], value: ruta.nombre},{name:['ciudad'], value: ruta.ciudad}]}>
+            <Form onFinish={updateData} fields={[{name:['nombre'], value: ruta.nombre},{name:['ciudad'], value: ruta.ciudad}]}>
                 <Row justify="space-between">
                     <Col span={7}>
                       <Form.Item label="Nombre" name="nombre" rules={[{ required: true, message: 'El nombre es obligatorio!!' }]}>

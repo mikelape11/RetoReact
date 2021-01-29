@@ -5,8 +5,8 @@ import { AuthContext } from "../../App";
 
 import { authenticationService } from "../../services/authentication.service";
 
-const logoRquest = "/img/logo2.png";
-const fondo = "/img/fondoAmarillo.jpg";
+const logoRquest = "/img/azul1.png";
+const fondo = "/img/ws_Blue_Sky_Way_&_Green_Fields_1920x1080.jpg";
 
 const { Header, Content, Footer } = Layout;
 
@@ -58,7 +58,7 @@ const Login = () => {
   return (
     <div>
         <Layout className="layout" style={{ minHeight: "100vh", backgroundImage: "url(" + fondo + ")" }}>
-          <Header className="header-login" style={{ padding: 0, backgroundColor:'orange' }}></Header>
+          <Header className="header-login" style={{ padding: 0, backgroundColor:'#337ab7' }}></Header>
           <Content>
             <Row >
               <Col sm={24} md={12} lg={6} xl={6} style={{ textAlign: "center" }} className="form">
@@ -85,7 +85,7 @@ const Login = () => {
                   </Form.Item>
                   <Form.Item>
                     <Spin spinning={data.isSubmitting}>
-                      <Button type="primary" shape="round" htmlType="submit" style={{backgroundColor: 'orange'}} className="button">
+                      <Button type="primary" shape="round" htmlType="submit" style={{backgroundColor: '#337ab7'}} className="button">
                         Entrar
                       </Button>
                     </Spin>
@@ -95,7 +95,7 @@ const Login = () => {
               </Col>
             </Row>
           </Content>
-          <Footer style={{ textAlign: "center", color:'black', backgroundColor:'orange' }}>Route Quest &copy; 2021</Footer>
+          <Footer style={{ textAlign: "center", color:'black', backgroundColor:'#337ab7' }}>Route Quest &copy; 2021</Footer>
         </Layout>
     </div>
   );
