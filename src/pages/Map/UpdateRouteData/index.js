@@ -8,7 +8,7 @@ import 'leaflet-extra-markers/dist/js/leaflet.extra-markers.js.map';
 import 'leaflet-extra-markers/dist/js/leaflet.extra-markers.min.js';
 import 'leaflet-extra-markers/dist/js/leaflet.extra-markers.js';
 import 'leaflet-extra-markers/dist/css/leaflet.extra-markers.min.css';
-import { Row, Col, Breadcrumb, Typography, Form, Input } from 'antd';
+import { Row, Col, Breadcrumb, Typography, Form, Input, Button } from 'antd';
 
 const {Title, Text} = Typography;
 
@@ -125,6 +125,7 @@ const UpdateRouteData = () =>{
                     </Col>
                     <Col><h1>Distancia: {(Math.round((ruta.distancia/1000)*100))/100} km</h1></Col>
                     <Col><h1>Tiempo estimado: {Math.round((ruta.tiempo/1000)/60)} min</h1></Col>
+                    <Col><Button htmlType="submit">Actualizar ruta</Button></Col>
                 </Row>
             </Form>
             <MapContainer center={position} zoom={zoom} style={{ height: 'calc(105vh - 210px)' }}>

@@ -4,9 +4,10 @@ import "./ChatRoom.css";
 import useChat from "../useChat";
 
 const ChatRoom = () => {
-  const { roomId } = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+  const [ roomId ] = React.useState(window.location.href.substring(window.location.href.lastIndexOf('/') + 1));
   const { messages, sendMessage } = useChat(roomId);
   const [ newMessage, setNewMessage ] = React.useState("");
+ 
 
   const handleNewMessageChange = (event) => {
     setNewMessage(event.target.value);

@@ -56,7 +56,7 @@ const Map = () =>{
                 setPregunta(result)
             }
         )
-        fetch(`http://localhost:8080/ubicacion/todos`)
+        fetch(`http://localhost:8080/ubicacion/${window.location.href.substring(window.location.href.lastIndexOf('/') + 1)}`)
         .then(res => res.json())
         .then(
             (result)=>{
