@@ -70,11 +70,20 @@ const UserTable = () =>{
        setSearchText('');
     };
     const columns = [
-        {title:'ID',dataIndex:'_id',key:'_id'},{title: 'Nombre de usuario',dataIndex:'usuario',key:'usuario', ...getColumnSearchProps('usuario')},{ title: 'Contraseña',  dataIndex:'password',key:'password'},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>deleteRoute(record._id)} icon={<DeleteOutlined />}/></b>} 
+        {title:'ID',dataIndex:'_id',key:'_id'},{title: 'Nombre de usuario',dataIndex:'usuario',key:'usuario', ...getColumnSearchProps('usuario')},{ title: 'Contraseña',  dataIndex:'password',key:'password'},{ title: 'Action', key: 'operation', fixed: 'right', width: 100, render: (_, record) => <b><Button onClick={()=>deleteRoute(record._id, record.usuario)} icon={<DeleteOutlined />}/></b>} 
     ]
     
-    const deleteRoute = id =>{
+    const deleteRoute = (id, usuario) =>{
       fetch(`http://localhost:8080/usuarios/${id}`,{
+        method: 'DELETE',
+        headers: {
+          'Content-Type':'application/json',
+        }
+      }).then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => console.log('Success:', response));
+
+      fetch(`http://localhost:8080/ranking/${usuario}`,{
         method: 'DELETE',
         headers: {
           'Content-Type':'application/json',
