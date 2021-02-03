@@ -9,16 +9,19 @@ const useChat = (roomId) => {
   const socketRef = useRef();
 
   useEffect(() => {
+    console.log(roomId)
     socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
-      query: { roomId },
+      route: { roomId },
     });
     console.log(socketRef)
+    socketRef.current.connect(SOCKET_SERVER_URL)
     
     socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
       const incomingMessage = {
         ...message,
         ownedByCurrentUser: message.senderId === socketRef.current.id,
       };
+      console.log(incomingMessage)
       setMessages((messages) => [...messages, incomingMessage]);
     });
     console.log(socketRef)
@@ -27,11 +30,13 @@ const useChat = (roomId) => {
       socketRef.current.disconnect();
     };
   }, [roomId]);
-
+  //https://github.com/justadudewhohacks/websocket-chat/blob/master/client/socket.js
   const sendMessage = (messageBody) => {
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
-      body: messageBody,
-      senderId: socketRef.current.id,
+      route: roomId,
+      action: "msg",
+      from: JSON.parse(localStorage.getItem("user") || null),
+      value: messageBody,
     });
   };
 

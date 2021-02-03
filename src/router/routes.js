@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Home from '../pages/about'
 import RouteTable from '../pages/Map'
 import Map from '../pages/Map/ReadMap'
 import RouteCreator from '../pages/Map/CreateRoute'
@@ -11,6 +12,13 @@ import UserTable from '../pages/Usuarios'
 import ChatRoom from '../pages/Chat/ChatRoom/index'
 
 export const routes = [
+    {
+        key: "0",
+        path: "/",
+        exact: true,
+        text: "None",
+        body: () => <Home /> 
+    },
     {
         key: "1",
         path: "/routes",
